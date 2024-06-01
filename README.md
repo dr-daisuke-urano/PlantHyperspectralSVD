@@ -1,10 +1,14 @@
-# SVD-assisted visualization and assessment of spatial hyperspectral patterns in plant leaves
+## SVD-assisted visualization and assessment of spatial hyperspectral patterns of plant leaves
 
 This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home].
 
-## Project Overview
+
+### Project Summary
 
 Hyperspectral camera captures the reflectance of light with greater spectral resolutions (sub-nanometer to a few nanometers), and saves information into the data cube of x, y and λ (two dimensional images with many wavelength channels). This project describes the Python codes to visualize leaf color patterns using pseudo-color spaces built with singular vector decomposition (SVD) of the normalized hyperspectral images. The procedure consists of four steps. The first step normalizes pixel intensity at all wavelength channels using the mean reflectance near 900 nm (875 to 925 nm bands were used in this invention disclosure). The second step conducts SVD transformation and saves the first five SVD spaces. The third step generates the pseudo-colored images with density plot along the five SVD color spaces. The user of hyperspectral camera then selects and saves the SVD color space(s) that effectively represents leaf color patterns. The fourth step applies the saved SVD space(s) to hyperspectral images of other leaves. The pseudo-colored images can also be used together with spot or area detection algorithms to diagnose plant nutrient stresses. 
+
+**Brief Description of the Drawing**
+![alt text](http://url/to/img.png)
 
 ## Dependencies
 
