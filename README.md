@@ -5,7 +5,7 @@ This is the official implementation for Shalini Krishnamoorthi et al. (2024) [ht
 
 
 ## Project Summary
-Leaf reflectance spectrum is widely used for plant stress diagnostics, especially for nutrient stresses and pathogen infections that cause distinct leaf color patterns. Hyperspectral cameras capture the reflectance of light with high spectral resolution (spectral resolution ranging from sub-nanometer to a few nanometers) and store this information in a data cube of x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project describes Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular vector decomposition (SVD) of normalized hyperspectral images. 
+Leaf reflectance spectrum is widely used for plant stress diagnostics, especially for nutrient stresses and pathogen infections that cause distinct leaf color patterns. Hyperspectral cameras capture the reflectance of light with high spectral resolution (spectral resolution ranging from sub-nanometer to a few nanometers) and store this information in a data cube of x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project describes Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular value decomposition (SVD) of normalized hyperspectral images. 
 
 The procedure consists of four steps:
 
@@ -14,9 +14,8 @@ The procedure consists of four steps:
 3. Pseudo-Color Generation: Generate pseudo-colored images and create density plots along the five SVD color spaces. The user then selects and saves the SVD color space(s) that effectively represent leaf color patterns.
 4. Application: Apply the selected SVD space(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose plant nutrient stresses in Marchantia polymorpha (liverwort) and Lactuca sativa (lettuce).
 
-Figure below shows a diagram summarizing this project. 
-
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure1.png" alt="Alt text" width="50%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure1.png" alt="Alt text" width="70%">
+Figure 1 Diagram summarizing this project. 
 
 ## Dependencies
 To create a Conda environment with the dependencies used in Krishmoorthi S (2024), use the following command:
@@ -56,6 +55,10 @@ ii. Divide pixel values at all wavelength channels by the respective mean nIR re
 ### Step 2: Singular value decomposition (SVD)
 SVD is a widely used method for dimensionality reduction. Most of the spectral information spanning different wavelength channels can be projected into a small number of dimensional spaces. This method is effective in extracting non-redundant spectral features which possibly highlight anomalous leaf color patterns. 
 
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure2.png" alt="Alt text" width="70%">
+Figure 2. Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  (A, B) Reflectance spectra obtained from representative plant leaves grown under control (A) and phosphate deficiency (B) conditions. Leaf reflectance at nIR bands from 890 to 910 nm are minimally affected by nutrient deficiencies but rather affected by light conditions. Blue graphs show the original reflectance spectra from leaf pixels. Orange graphs show reflectance spectra from the same pixels after dividing the original reflectance values by the mean reflectance from 890 to 910 nm. The solid lines with transparent bands show the mean values with S.D. Red vertical bands show the wavelength from 890 to 910 nm. 
+
+
 ### Step 2 procedure: 
 ```python
 """
@@ -66,6 +69,8 @@ ii. Run singular value decomposition algorithm with seven iterations, and save t
 
 ### Step 3: Transformation of the representative images into SVD spaces 
 The transformation matrices of SVD can be used to project high-dimensional hyperspectral data into a small-dimensional space (two-dimensional image with six wavelength channels obtained with the SVD transformation matrix). Each of major SVD channels highlights distinct spectral features contained in the original data cube. 
+
+Figure 3-1. 
 
 ### Step 3 procedure:
 ```python
