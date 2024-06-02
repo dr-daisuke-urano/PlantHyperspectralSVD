@@ -1,8 +1,13 @@
 # SVD-assisted visualization and assessment of spatial hyperspectral patterns of plant leaves
 This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home].
 
+## Background
+Leaf reflectance spectrum is widely used for plant stress diagnostics, especially for nutrient stresses and pathogen infections that cause distinct leaf color patterns.
+
+Figure 0: Spatial-spectral characteristics of M. polymorpha under different nutrient deficiency. (A) Schematic diagrams of hyperspectral and RGB image collections. Seven-old gemmalings were transferred to control (Cntl), 0xFe, 0xN, 0xP, and 0.05xCa media and grown for additional 14 days before RGB and hyperspectral imaging. The minimal enclosing circle of thallus area was divided evenly into three areas as indicated by the yellow dotted lines, namely central, paracentral and peripheral regions. Blue line indicates the centre and the farthest pixel of thallus. Thallus reflectance spectra were collected from thallus pixels in the minimal enclosing circle (whole) and the three areas. (B) Thallus area at day 14 of nutrient deficiency treatment. Box plot shows the individual data points and the 25th, 50th and 75th percentiles with whiskers showing max and min values within 1.5 x inter-quartile range (IQR). (C) Representative thallus images at day 14 of nutrient deficiency treatment. Scale bar is 1 cm. (D) Reflectance spectra from the whole, central, paracentral, and peripheral areas of thallus. The graphs show the mean values (solid lines) of thallus reflectance with s.d. (translucent bands). Green, red and blue dashed lines indicate absorption wavelengths for chlorophyll, anthocyanin and water respectively. n = 50 plants. Supplementary Fig S2 shows representative thallus images and leaf reflectance spectra for 0.05 x N, 0.05 x P, 0.05 x Fe, 0.1 x Ca and 0 x Mg treatment. 
+
 ## Project Overview
-Leaf reflectance spectrum is widely used for plant stress diagnostics, especially for nutrient stresses and pathogen infections that cause distinct leaf color patterns. Hyperspectral cameras capture the reflectance of light with high spectral resolution (spectral resolution ranging from sub-nanometer to a few nanometers) and store this information in a data cube of x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project describes Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular value decomposition (SVD) of normalized hyperspectral images. 
+Hyperspectral cameras capture the reflectance of light with high spectral resolution (spectral resolution ranging from sub-nanometer to a few nanometers) and store this information in a data cube of x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project describes Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular value decomposition (SVD) of normalized hyperspectral images. 
 
 The procedure consists of four steps:
 
@@ -71,8 +76,8 @@ The transformation matrices of SVD can be used to project high-dimensional hyper
 Figure 3-1. Singular Value Decomposition. In this project, leaf reflectance spectra are represented by a matrix M, where each column corresponds to different wavelengths, and each row corresponds to individual plants. SVD decomposes this matrix A into three matrices: U, Σ, and V*. The left singular vectors U (columns of U) capture distinct patterns or characteristics present in the reflectance spectra. Specifically, the four columns of U represent values in the first four dimensions of SVD, which can be thought of as unique features extracted from the data.
 Now, focus on the right singular vectors V*, or more precisely, the rows of V*. The first four rows of V* act as a weight matrix, revealing how leaf reflectance at individual wavelengths contribute to the identified patterns represented by the first four SVD modes. Each row in V* helps us understand the significance of specific wavelengths in shaping the major patterns (SVD0 – SVD3) discovered in the leaf reflectance spectra. Image source: Wikipedia (https://en.wikipedia.org/wiki/Singular_value_decomposition).<p></p>
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure3-2.png" alt="Alt text" width="70%">
-Figure 3-2. (A) Scatter plots showing the first four dimensions of SVD from Marchantia polymorpha plants. (B) Line graphs showing the transformation matrices from SVD 0 to 4. Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure3-2.png" alt="Alt text" width="100%">
+Figure 3-2. (A) SVD analysis of thallus reflectance spectra. Thallus reflectance from the whole area is plotted on the first four columns of left singular vectors (SVD 0 – SVD 3) that were calculated from the central and peripheral spectral data. Colours show different nutrient deficiency treatments. (B) Line graphs showing the right singular vector rows for the first four dimensions of SVD. Green, red and blue vertical lines show absorption wavelengths for chlorophyll, anthocyanin and water.  Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ### Step 3 procedure:
 ```python
@@ -100,7 +105,7 @@ plt.show()
 ### Step 4: Pseudo-coloring of hyperspectral leaf images
 Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure4.png" alt="Alt text" width="50%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure4.png" alt="Alt text" width="100%">
 Figure 4. (C) RGB and pseudo-coloured images of M. polymorpha plants treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values were extracted from the peripheral, paracentral, and central areas and shown in the box plots D – F below. Scale bar represents 1 cm. (D) The box plots show the 25th, 50th and 75th percentiles with whiskers showing max and min values within 1.5 x IQR. Coloured dots in the boxplots represent the raw data from individual plants (n = 50 plants). 
 
 ### Step 4 procedure:
