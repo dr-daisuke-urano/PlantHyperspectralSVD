@@ -70,7 +70,12 @@ ii. Run singular value decomposition algorithm with seven iterations, and save t
 ### Step 3: Transformation of the representative images into SVD spaces 
 The transformation matrices of SVD can be used to project high-dimensional hyperspectral data into a small-dimensional space (two-dimensional image with six wavelength channels obtained with the SVD transformation matrix). Each of major SVD channels highlights distinct spectral features contained in the original data cube. 
 
-Figure 3-1. 
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure3-1.jpg" alt="Alt text" width="50%">
+Figure 3-1. Singular Value Decomposition. In this project, leaf reflectance spectra are represented by a matrix M, where each column corresponds to different wavelengths, and each row corresponds to individual plants. SVD decomposes this matrix A into three matrices: U, Σ, and V*. The left singular vectors U (columns of U) capture distinct patterns or characteristics present in the reflectance spectra. Specifically, the four columns of U represent values in the first four dimensions of SVD, which can be thought of as unique features extracted from the data.
+Now, focus on the right singular vectors V*, or more precisely, the rows of V*. The first four rows of V* act as a weight matrix, revealing how leaf reflectance at individual wavelengths contribute to the identified patterns represented by the first four SVD modes. Each row in V* helps us understand the significance of specific wavelengths in shaping the major patterns (SVD0 – SVD3) discovered in the leaf reflectance spectra. Image source: Wikipedia (https://en.wikipedia.org/wiki/Singular_value_decomposition).<p></p>
+
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure3-2.png" alt="Alt text" width="70%">
+Figure 3-2. (A) Scatter plots showing the first four dimensions of SVD from Marchantia polymorpha plants. (B) Line graphs showing the transformation matrices from SVD 0 to 4. Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ### Step 3 procedure:
 ```python
