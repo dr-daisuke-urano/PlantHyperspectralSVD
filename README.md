@@ -36,13 +36,11 @@ conda env create -f environment.yml
 - x
 - scikit-learn
 
-
-## Sample Usage
-
+## Usage
 ### Prerequisites: 
 The following code requires two or more hyperspectral images of representative leaves obtained from control and stress conditions. The control and stress condition images should be from the same species and at the same developmental stages (e.g., do not compare leaf reflectance patterns of rice with those of maize).
 
-Before proceeding with step 1, Gaussian smoothing filter with the kernel of (2,2) was applied to the hyperspectral cube. In addition, background masking was performed to extract plant pixels from the hyperspectral cube. 
+Before proceeding with step 1, Gaussian smoothing filter could be applied to the hyperspectral cube. In addition, background masking was performed to extract plant pixels from the hyperspectral cube. 
 
 ### Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  
 Plant leaves show high reflectance of near-infrared (nIR) light. While the reflectance at far-red wavelengths (700 – 780 nm) was greatly reduced under various stress conditions, the leaf reflectance at longer wavelengths is highly independent of plant growing conditions. First, we identified the wavelength bands that showed the smallest “coefficient of variations (CoV)” among the wavelength range from 400 to 1000 nm, which can then be used as the reference band to normalize the leaf reflectance spectra. The bands near 900 nm (890 – 910 nm) were originally selected from more than 100 spectral data obtained from control, nitrate deficiency, phosphate deficiency, iron deficiency, magnesium deficiency and calcium deficiency conditions in M. polymorpha. The small CoV at ~900 nm was consistently observed in L. sativa plants. 
