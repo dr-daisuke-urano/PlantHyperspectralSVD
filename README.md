@@ -33,7 +33,7 @@ conda env create --name PlantHyperspectralSVD --file environment.yml
 - numpy 1.26.4
 - opencv-python 4.9.0.80
 - pandas 2.2.1
-- seaborn 0.12.2
+- seaborn 0.11.2
 - scikit-learn 1.5.0
 - scipy 1.13.1
 
