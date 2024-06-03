@@ -21,7 +21,7 @@ Hyperspectral cameras capture the reflectance of light with high spectral resolu
 Figure 1 Diagram summarizing this project. 
 
 ## Dependencies
-To create a Conda environment with the dependencies used in Krishmoorthi S (2024), use the following command:
+To create a Conda environment with the dependencies used in Krishmoorthi S (2024), download environment.yml file and use the following command:
 
 ```bash
 conda env create -f environment.yml
