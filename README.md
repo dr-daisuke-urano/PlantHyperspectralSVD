@@ -2,7 +2,7 @@
 This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ## Background
-Leaf reflectance spectrum is widely used for plant stress diagnostics, especially for nutrient stresses and pathogen infections that cause distinct leaf color patterns. Figure 0 shows Marchantia polymorpha plants grown under different nutrient deficiencies. Nitrate deficiency (0xN) leads to early senescence in the central area. In contrast, phosphate deficiency (0xP) induces pigment accumulation in the central area. Iron deficiency (0xFe) causes thallus chlorosis starting from the peripheral growing area, and calcium deficiency (0.05xCa) causes the irreversible necrosis of the growing edges. As leaf color changes in response to nutrient deficiency are location-dependent, leaf reflectance spectra were obtained separately from three different regions: a central circle, paracentral annulus, and peripheral annulus (Figure 0A). 
+Leaf reflectance spectrum is widely used for plant stress diagnostics, especially for nutrient stresses and pathogen infections that cause distinct leaf color patterns. Figure 0 shows Marchantia polymorpha plants grown under different nutrient deficiencies. Nitrate deficiency (0xN) and phosphate deficiency (0xP) lead to early senescence and purple pigment accumulation in the central area, respectively. Iron deficiency (0xFe) causes thallus chlorosis starting from the peripheral growing area, and calcium deficiency (0.05xCa) causes the irreversible necrosis of the growing edges. As these leaf color changes are location-dependent, leaf reflectance spectra were obtained separately from three different regions: a central circle, paracentral annulus, and peripheral annulus (Figure 0A). 
 
 <p></P>
 
