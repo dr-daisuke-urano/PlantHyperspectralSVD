@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Toolbox for Shalini's hyperspectral analysis, version 8
 Updated on March 9th 2021
 
 
@@ -35,7 +34,6 @@ def hsi_loading (path):
 
 def RGB(cube):
     
-    import pandas as pd
     import numpy as np
 
     # R, G, and B reference reflectance values from the Channel 6 to 98
@@ -110,19 +108,6 @@ def RGB(cube):
     img = adjust_brightness(img, 50)
     
     return img
-#%%
-# Return a masked cube
-
-def hsi_masked(cube, threshold_leaf = 0.6):
-    
-    import numpy as np
-    import cv2
-    
-    img = RGB(cube)
-    _, mask = cv2.threshold(1 - img[:,:,0]/255, threshold_leaf, 1, cv2.THRESH_BINARY) 
-    masked_cube = cube * mask[:,:, np.newaxis]
-    
-    return masked_cube
 
 #%%
 # Adjust brightness of single image
@@ -136,17 +121,14 @@ def adjust_brightness(img, value = 0):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv)
 
-    if value > 0:
+    if 0 <= value <= 255:
         lim = 255 - value
         v[v > lim] = 255
         v[v <= lim] += value 
  
     else:
-        value = -value
-        lim = value
-        v[v < lim] = 0
-        v[v >= lim] -= value         
-    
+        raise ValueError(f"Value {value} is outside the range 0 to 255.")
+        
     final_hsv = cv2.merge((h, s, v))
     img = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
     return img
@@ -177,11 +159,11 @@ def hsi_selection (cube):
     coordinateStore1 = CoordinateStore()
     img = RGB(cube)
     
-    cv2.namedWindow('select plants manually', cv2.WINDOW_NORMAL)
-    cv2.setMouseCallback('select plants manually', coordinateStore1.select_point)
+    cv2.namedWindow('Left Click: select plants, q: quit', cv2.WINDOW_NORMAL)
+    cv2.setMouseCallback('Left Click: select plants, q: quit', coordinateStore1.select_point)
     
     while True:
-        cv2.imshow('select plants manually', img)
+        cv2.imshow('Left Click: select plants, q: quit', img)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
