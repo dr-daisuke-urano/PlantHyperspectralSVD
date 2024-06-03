@@ -17,7 +17,7 @@ Cntl_Tak1','Cntl_wrky10','Cntl_Tak1','Cntl_wrky10
 
 
 #%% 
-from hyperspec_SR8_ZY import *
+from PlantHyperspecSVD import *
 import cv2
 import pandas as pd
 import numpy as np
