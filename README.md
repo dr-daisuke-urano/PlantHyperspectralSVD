@@ -10,7 +10,7 @@ Leaf reflectance spectrum is widely used for plant stress diagnostics, especiall
 Figure 0: Summary of spectral data obtained from Marchantia polymorpha. (A) Leaf reflectance spectra were obtained separately from central, paracentral and peripheral regions. (B-F) Representative images and leaf reflectance spectra of Marchantia polymorpha grown under nutrient deficiency. The graphs show the mean values (solid lines) with s.d. (translucent bands). Green, red and blue dashed lines indicate absorption wavelengths for chlorophyll, anthocyanin and water.
 
 ## Project Overview
-Hyperspectral cameras capture the reflectance of light with high spectral resolution (spectral resolution ranging from sub-nanometer to a few nanometers) and store this information in a data cube of x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project describes Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular value decomposition (SVD) of normalized hyperspectral images. The procedure consists of four steps:
+Hyperspectral cameras capture the reflectance of light with high spectral resolution, storing this information in a data cube with x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project provides Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular value decomposition (SVD) of normalized hyperspectral images. The procedure consists of four steps:
 
 1. Normalization: Normalize pixel intensity across all wavelength channels using the mean reflectance near 900 nm (bands from 875 to 925 nm are used in this step).
 2. SVD Transformation: Perform SVD transformation and save the first five SVD spaces.
