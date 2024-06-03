@@ -27,14 +27,14 @@ To create a Conda environment with the dependencies used in Krishmoorthi S (2024
 conda env create -f environment.yml
 ```
 
-- Python 3.6+
-- NumPy
-- Matplotlib
-- OpenCV
-- x
-- x
-- x
-- scikit-learn
+- python 3.12.3
+- matplotlib 3.8.4
+- numpy 1.26.4
+- opencv-python 4.9.0.80
+- pandas 2.2.1
+- seaborn 0.12.2
+- scikit-learn 1.5.0
+- scipy 1.13.1
 
 ## Usage
 ### Prerequisites: 
