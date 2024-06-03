@@ -37,18 +37,73 @@ def RGB(cube):
     
     import pandas as pd
     import numpy as np
-    
-    RGB_reference = pd.read_csv(r'S:/GraceT/python_code/RGB_reference.csv')
-    
-    B_channel = (cube[:,:,6:109] * RGB_reference['B'].values[np.newaxis, np.newaxis, 6:109]).sum(axis = 2)
-    G_channel = (cube[:,:,6:109] * RGB_reference['G'].values[np.newaxis, np.newaxis, 6:109]).sum(axis = 2)
-    R_channel = (cube[:,:,6:109] * RGB_reference['R'].values[np.newaxis, np.newaxis, 6:109]).sum(axis = 2)
 
-    B_channel = (cube[:,:,6:99] * RGB_reference['B'].values[np.newaxis, np.newaxis, 6:99]).sum(axis = 2)
-    G_channel = (cube[:,:,6:99] * RGB_reference['G'].values[np.newaxis, np.newaxis, 6:99]).sum(axis = 2)
-    R_channel = (cube[:,:,6:99] * RGB_reference['R'].values[np.newaxis, np.newaxis, 6:99]).sum(axis = 2)
+    # R, G, and B reference reflectance values from the Channel 6 to 98
+    B_reference = np.array([0.28462822, 0.28685858, 0.28758628, 0.29093164, 0.29571122,
+           0.30220778, 0.30079957, 0.27963749, 0.29555491, 0.31906699,
+           0.32516116, 0.32451853, 0.32559147, 0.32121282, 0.31593104,
+           0.31127376, 0.30159306, 0.29403532, 0.28518392, 0.27803837,
+           0.26438833, 0.25220742, 0.23785448, 0.22080147, 0.20234738,
+           0.18885382, 0.1813013 , 0.17122129, 0.16100587, 0.1516296 ,
+           0.14161461, 0.13246509, 0.12350839, 0.11398222, 0.1053238 ,
+           0.09502631, 0.08695949, 0.0798408 , 0.07264553, 0.06786152,
+           0.06351456, 0.0600972 , 0.05584277, 0.04966747, 0.04722196,
+           0.04584859, 0.04574296, 0.04914031, 0.04966885, 0.0486881 ,
+           0.0484957 , 0.04782599, 0.04706948, 0.04643554, 0.04711054,
+           0.0459301 , 0.04562978, 0.04483982, 0.04478453, 0.04492691,
+           0.04528737, 0.04501297, 0.044905  , 0.04501652, 0.0449133 ,
+           0.04555969, 0.04434773, 0.03968953, 0.03880938, 0.0427795 ,
+           0.04565767, 0.04564508, 0.04515549, 0.04575521, 0.04612792,
+           0.04700006, 0.04855985, 0.04939982, 0.04975982, 0.05118658,
+           0.05134406, 0.05192206, 0.0528893 , 0.05424882, 0.05466969,
+           0.05568517, 0.05646897, 0.05624799, 0.05528999, 0.05502877,
+           0.05431273, 0.0536918 , 0.05313713])
+    
+    G_reference = np.array([0.21133903, 0.19229854, 0.18078605, 0.16417557, 0.15436052,
+           0.14840434, 0.12556966, 0.09313943, 0.0970141 , 0.12014251,
+           0.11981628, 0.11819124, 0.12000915, 0.11835837, 0.1193578 ,
+           0.12030675, 0.1218589 , 0.12349002, 0.12709269, 0.13230053,
+           0.13579399, 0.14191656, 0.14937976, 0.15476981, 0.15940244,
+           0.16737199, 0.18270389, 0.2020068 , 0.22317632, 0.24598215,
+           0.27072405, 0.29505249, 0.31961973, 0.34010537, 0.35724534,
+           0.36693443, 0.3737123 , 0.37546906, 0.37373522, 0.37074009,
+           0.3664101 , 0.35928211, 0.3499074 , 0.33562034, 0.32473127,
+           0.31567165, 0.31262132, 0.30839412, 0.29890602, 0.28856173,
+           0.27746994, 0.26626604, 0.25537294, 0.24514435, 0.2363445 ,
+           0.22501424, 0.21382301, 0.20501528, 0.19609266, 0.18763979,
+           0.17928106, 0.17153051, 0.16436592, 0.15626209, 0.1498779 ,
+           0.1446759 , 0.13768314, 0.12677298, 0.12379434, 0.12577324,
+           0.12516931, 0.12377166, 0.12184466, 0.12027606, 0.11963645,
+           0.11984991, 0.11964515, 0.11898388, 0.11754042, 0.11713352,
+           0.11657382, 0.11545898, 0.11547345, 0.11564586, 0.11568949,
+           0.11692526, 0.11748922, 0.11804433, 0.11938791, 0.12119119,
+           0.12227899, 0.1234448 , 0.12521574])
+    
+    R_reference = np.array([0.19379772, 0.18053199, 0.16449151, 0.14728372, 0.13217046,
+           0.12471709, 0.09912372, 0.06362731, 0.06501805, 0.08884007,
+           0.0872441 , 0.0855771 , 0.0840513 , 0.0828051 , 0.08234076,
+           0.08084493, 0.08133215, 0.08087183, 0.08254146, 0.08292572,
+           0.08340879, 0.08386889, 0.08278485, 0.08019788, 0.07456487,
+           0.06964235, 0.07022374, 0.0718186 , 0.07329241, 0.07471453,
+           0.07527669, 0.07545765, 0.07577908, 0.07413419, 0.07420735,
+           0.07298076, 0.07303222, 0.07371355, 0.07331879, 0.07373113,
+           0.07325049, 0.07174468, 0.06877615, 0.06185071, 0.05729419,
+           0.05601269, 0.05861221, 0.06474009, 0.06926641, 0.07156813,
+           0.07453253, 0.07746038, 0.07975167, 0.08327926, 0.08758171,
+           0.08938982, 0.09140255, 0.09479274, 0.09979963, 0.10750622,
+           0.11896181, 0.13528612, 0.15544309, 0.18053507, 0.20842546,
+           0.24427374, 0.28137826, 0.31276189, 0.34233328, 0.4002486 ,
+           0.45385175, 0.49514783, 0.53280182, 0.56352838, 0.58944713,
+           0.61350888, 0.63375058, 0.64685355, 0.65512809, 0.66278691,
+           0.66776043, 0.67205826, 0.67632037, 0.68149331, 0.68275553,
+           0.68573297, 0.68618982, 0.68956697, 0.68951365, 0.69225473,
+           0.69300172, 0.69386459, 0.69621948])
+        
+    B = (cube[:,:,6:99] * B_reference[np.newaxis, np.newaxis, :]).sum(axis = 2)
+    G = (cube[:,:,6:99] * G_reference[np.newaxis, np.newaxis, :]).sum(axis = 2)
+    R = (cube[:,:,6:99] * R_reference[np.newaxis, np.newaxis, :]).sum(axis = 2)
 
-    img = np.array([B_channel/np.percentile(B_channel,90), G_channel/np.percentile(G_channel,90), R_channel/np.percentile(R_channel,90)])
+    img = np.array([B/np.percentile(B,90), G/np.percentile(G, 90), R/np.percentile(R, 90)])
     img = img.transpose(1,2,0)
     img[img > 1] = 1
     img = (200*img).astype(np.uint8)
@@ -139,7 +194,6 @@ def hsi_selection (cube):
         spectrum_data.append(spectrum)
 
     img = img.astype(np.uint8)
-#    df = pd.DataFrame(np.transpose([range(len(coordinateStore1.points)), [" "]*len(coordinateStore1.points), coordinateStore1.points, spectrum_data]), columns = ['ID', 'label', 'xy', 'ROI Reflectance'])
     df = pd.DataFrame([range(len(coordinateStore1.points)), [" "]*len(coordinateStore1.points), coordinateStore1.points, spectrum_data], index = ['ID', 'label', 'xy', 'ROI Reflectance']).transpose()
     return df, img
     
@@ -224,24 +278,6 @@ def hsi_nmf (cube, bands, dim = 10, path = None):
     return model_nmf
 
 #%%
-def two_areas (mask, x, y, r):
-    
-    import numpy as np
-    import cv2
-    
-    outer = np.zeros(mask.shape[:2], np.uint8)  
-    cv2.circle(outer,(int(x),int(y)), int(r), 1, thickness=-1) 
-    outer = cv2.bitwise_and(mask, outer)
-
-    central = np.zeros(mask.shape[:2], np.uint8)  
-    cv2.circle(central,(int(x),int(y)), int(r/2), 1, thickness=-1)
-    central = cv2.bitwise_and(mask, central)
-
-    outer = cv2.bitwise_and(outer, cv2.bitwise_not(central))
-
-    return central, outer
-
-#%%
 def three_areas (mask, x, y, r):
     
     import numpy as np
@@ -266,145 +302,143 @@ def three_areas (mask, x, y, r):
 
 
 #%%
-'''
-Note
-cube: hyperspectral cube data from Specim camera
-df_loc: dataframe 
-
-'''
-def data_extraction_SR (cube, df_loc, threshold = 2.2, kn = 1, dist = 15, path = None):
+def plant_masking(cube, threshold=2.2, kn=1):
+    import cv2
+    import pandas as pd
+    import numpy as np
     
+    # Convert the hyperspectral cube to RGB image
+    img = RGB(cube)
+
+    # Mask white pixels (reflection from a plate) using a brightness threshold
+    _, white = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_RGB2GRAY), 235, 1, cv2.THRESH_BINARY_INV)
+
+    # Load the SVD model
+    model = pd.read_csv(r'C:/Users/Admin/OneDrive - Temasek Life Sciences Laboratory/Experimental_Data/Hyperspectral_Imaging/model_svd.csv').iloc[1, 1:]
+
+    # Apply SVD model to hyperspectral data
+    svd_pic = np.dot(cube[:, :, 10:200], model)
+
+    # Threshold the SVD image to create a mask
+    _, mask = cv2.threshold(svd_pic, threshold, 1, cv2.THRESH_BINARY_INV)
+
+    # Morphological operations to clean up the mask
+    kernel = np.ones((kn, kn), dtype=np.uint8)
+    mask = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_OPEN, kernel)
+    mask = mask * white
+
+    return img, mask, svd_pic
+
+#%%
+def data_extraction_SR (cube, df_loc, threshold = 2.2, kn = 1, dist = 15, path = None):  
     import cv2
     import pandas as pd
     import numpy as np
     import scipy.spatial as spatial  
     from matplotlib import pyplot as plt
     import seaborn as sns
+
+    # Get the mask and related variables
+    img, mask, svd_pic = plant_masking(cube, threshold, kn)
         
-    data = [('ImageID', 'ID', 'label', 'leaf area [px]', 'radius [px]', 'reflectance', 'peripheral', 'paracentral', 'central')]
-    img = RGB(cube)
-
-    # Mask white pixels (reflection from a plate) using a brightness of 235
-    _, white = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_RGB2GRAY), 235, 1, cv2.THRESH_BINARY_INV) 
-
-    # The SVD model was generated from one of Grace's screening plate (Image ID: 272)
-    model = pd.read_csv(r'C:/Users/kshalini/OneDrive - Temasek Life Sciences Laboratory/Python code/model_svd.csv').iloc[1, 1:]
- #   model = pd.read_csv(r'C:/Users/daisuke/OneDrive - Temasek Life Sciences Laboratory/Experimental_Data/Hyperspectral_Imaging/model_svd.csv').iloc[1, 1:]
-    svd_pic = np.dot(cube[:,:,10:200], model)
-    _, mask = cv2.threshold(svd_pic, threshold, 1, cv2.THRESH_BINARY_INV) 
-
-    kernel = np.ones((kn,kn), dtype=np.uint8)
-#    mask = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_CLOSE, kernel)
-    mask = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_OPEN, kernel)
-    mask = mask * white
-    contours, _ = cv2.findContours(cv2.dilate(mask, np.ones((7,7), dtype=np.uint8), 3).astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    # Initialize the data list with column names
+    data = [[
+        'ImageID', 'ID', 'label', 'leaf area [px]', 'radius [px]', 
+        'reflectance', 'peripheral', 'paracentral', 'central'
+    ]]
+    
+    # Find contours in the mask
+    contours, _ = cv2.findContours(
+        cv2.dilate(mask, np.ones((7, 7), dtype=np.uint8), 3).astype(np.uint8),
+        cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE
+    )
 
     for c in contours:
-        if cv2.contourArea(c) > 25: # number of pixels 
+        if cv2.contourArea(c) > 25:  # Minimum contour area in pixels
             cimg = np.zeros(img.shape[:2])
             cv2.drawContours(cimg, [c], -1, color=255, thickness=-1)
-            coordinates = np.argwhere(cimg)[:,::-1]
+            coordinates = np.argwhere(cimg)[:, ::-1]
             for i in range(len(df_loc['xy'])):
                 ID = df_loc['ID'][i]
-                xy = (np.asarray(df_loc['xy'][i])).reshape(1,-1)
+                xy = np.asarray(df_loc['xy'][i]).reshape(1, -1)
                 if np.min(spatial.distance.cdist(np.asarray(xy), np.array(coordinates[:]))) < dist:
-
-                    (x,y), radius = cv2.minEnclosingCircle(c)
-            
-                    inner, middle, outer = three_areas(mask, x, y, radius)
-                    outer_cube = cube * cimg[:,:, np.newaxis] * outer[:,:, np.newaxis]
-                    middle_cube = cube * cimg[:,:, np.newaxis] * middle[:,:, np.newaxis]
-                    inner_cube = cube * cimg[:,:, np.newaxis] * inner[:,:, np.newaxis]
-
-#                    cv2.drawContours(img, c, -1, color = (255, 0, 0), thickness = 1)
-                    cv2.circle(img, (int(x),int(y)), int(radius), (255, 0, 255), 1)                        
-                    area = np.sum(cimg * mask)/255    #This is more accurate than using area enclosed in a contour.
-                    plant_cube = cube * cimg[:,:, np.newaxis] * mask[:,:, np.newaxis]
-                    data.append([path.split('\\')[-1], df_loc['ID'][i], df_loc['label'][i], area, radius, np.nansum(plant_cube, axis = (0,1))/np.sum(cimg*mask), np.nansum(outer_cube, axis = (0,1))/np.sum(cimg*outer), np.nansum(middle_cube, axis = (0,1))/np.sum(cimg*middle), np.nansum(inner_cube, axis = (0,1))/np.sum(cimg*inner)])
-                    print("ID " + str(ID) + " Leaf area = %s px" % str(np.sum(cimg*mask)/255))
+                    (x, y), radius = cv2.minEnclosingCircle(c)
                     
+                    # Extract areas using the three_areas function
+                    inner, middle, outer = three_areas(mask, x, y, radius)
+                    outer_cube = cube * cimg[:, :, np.newaxis] * outer[:, :, np.newaxis]
+                    middle_cube = cube * cimg[:, :, np.newaxis] * middle[:, :, np.newaxis]
+                    inner_cube = cube * cimg[:, :, np.newaxis] * inner[:, :, np.newaxis]
+
+                    # Draw the contour and circle
+                    cv2.circle(img, (int(x), int(y)), int(radius), (255, 0, 255), 1)
+                    
+                    # Calculate leaf area
+                    area = np.sum(cimg * mask) / 255
+                    plant_cube = cube * cimg[:, :, np.newaxis] * mask[:, :, np.newaxis]
+
+                    # Append data to the list
+                    data.append([
+                        path.split('\\')[-1], df_loc['ID'][i], df_loc['label'][i], area, radius,
+                        np.nansum(plant_cube, axis=(0, 1)) / np.sum(cimg * mask),
+                        np.nansum(outer_cube, axis=(0, 1)) / np.sum(cimg * outer),
+                        np.nansum(middle_cube, axis=(0, 1)) / np.sum(cimg * middle),
+                        np.nansum(inner_cube, axis=(0, 1)) / np.sum(cimg * inner)
+                    ])
+                    print(f"ID {ID} Leaf area = {area} px")
+
     for i in range(len(df_loc['xy'])):
-        if df_loc['label'][i] != None:
-            cv2.putText(img, str(i) + ':' + df_loc['label'][i], (df_loc['xy'][i][0]-int(dist), df_loc['xy'][i][1]+int(dist)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color=(255,0,255), thickness=1)
-                                                                             
+        if df_loc['label'][i] is not None:
+            cv2.putText(
+                img, f"{i}:{df_loc['label'][i]}", 
+                (df_loc['xy'][i][0] - int(dist), df_loc['xy'][i][1] + int(dist)), 
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6, color=(255, 0, 255), thickness=1
+            )
+
     # Show Masked image
     fig = plt.figure()
     ax1 = fig.add_subplot(1, 3, 1)
-    ax1 = sns.heatmap(svd_pic[::-1,:], cmap = 'rainbow', vmin = -4, vmax = 8, square = True, cbar_kws={"shrink": 0.5})
+    ax1 = sns.heatmap(
+        svd_pic[::-1, :], cmap='rainbow', vmin=-4, vmax=8, square=True, cbar=True, cbar_kws={"shrink": 0.5}
+    )
     ax1.invert_yaxis()
     ax1.axis('off')
-    ax1.set_title('Threshold val: %.1f' % threshold)
-    ax2 = fig.add_subplot(1, 3, 2)
-    ax2.imshow(RGB(cube) * mask[:,:, np.newaxis])
-    ax2.axis('off')    
-    ax2.set_title('Masked image %s' % path.split('\\')[-1])
-    ax3 = fig.add_subplot(1, 3, 3)
-    ax3.imshow(img)
-    ax3.axis('off')
-    ax3.set_title('Contour image %s' % path.split('\\')[-1])
-    fig.set_size_inches(18, 6)
-    fig.savefig(path + r'\%s_masked_image.png' % path.split('\\')[-1])
-    fig.show()
+    ax1.set_title(f'Threshold val: {threshold:.1f}')
     
-    masked_cube = cube * mask[:,:, np.newaxis]
-    df = pd.DataFrame(data[1:], columns = data[0]).sort_values('ID')
-    df_flatten = pd.concat([df.iloc[:,3:5], pd.DataFrame(df['reflectance'].apply(pd.Series), columns= None), pd.DataFrame(df['peripheral'].apply(pd.Series), columns= None), pd.DataFrame(df['paracentral'].apply(pd.Series), columns= None), pd.DataFrame(df['central'].apply(pd.Series), columns= None)], axis = 1)  
-    df_flatten.index = pd.MultiIndex.from_frame(df.iloc[:,:3])
-    df_flatten.columns = ['leaf area [px]', 'radius [px]'] + ["whole_" +str(a) for a in np.arange(204)] + ["peripheral_" +str(a) for a in np.arange(204)] + ["paracentral_" +str(a) for a in np.arange(204)] + ["central_" +str(a) for a in np.arange(204)]
-    df_flatten.to_csv(path + r'\%s_spectrum.csv' % path.split('\\')[-1], index = True)
+    ax2 = fig.add_subplot(1, 3, 2)
+    ax2.imshow(np.flip(RGB(cube) * mask[:, :, np.newaxis],2))
+    ax2.axis('off')
+    ax2.set_title(f'Masked image {path.split("\\")[-1]}')
+    
+    ax3 = fig.add_subplot(1, 3, 3)
+    ax3.imshow(np.flip(img, 2))
+    ax3.axis('off')
+    ax3.set_title(f'Contour image {path.split("\\")[-1]}')
+    
+    fig.set_size_inches(18, 6)
+    fig.savefig(path + rf'\{path.split("\\")[-1]}_masked_image.png')
+    fig.show()
+
+    # Create DataFrame and flatten data
+    masked_cube = cube * mask[:, :, np.newaxis]
+    df = pd.DataFrame(data[1:], columns=data[0]).sort_values('ID')
+    df_flatten = pd.concat([
+        df.iloc[:, 3:5], 
+        pd.DataFrame(df['reflectance'].apply(pd.Series), columns=None), 
+        pd.DataFrame(df['peripheral'].apply(pd.Series), columns=None), 
+        pd.DataFrame(df['paracentral'].apply(pd.Series), columns=None), 
+        pd.DataFrame(df['central'].apply(pd.Series), columns=None)
+    ], axis=1)
+    
+    df_flatten.index = pd.MultiIndex.from_frame(df.iloc[:, :3])
+    df_flatten.columns = [
+        'leaf area [px]', 'radius [px]'
+    ] + [f"whole_{a}" for a in np.arange(204)] + [f"peripheral_{a}" for a in np.arange(204)] + [f"paracentral_{a}" for a in np.arange(204)] + [f"central_{a}" for a in np.arange(204)]
+    
+    df_flatten.to_csv(path + rf'\{path.split("\\")[-1]}_spectrum.csv', index=True)
                 
     return df_flatten, img, masked_cube
 
-#%%
-def SQL_write (df, path):
-    import sqlite3
-    
-    try:
-        conn = sqlite3.connect(r'C:\Users\daisuke\OneDrive - Temasek Life Sciences Laboratory\Experimental_Data\Hyperspectral_Imaging\hyperspec_SQL.sqlite')
-        df.to_sql('hyperspec'+path.split('\\')[-1], conn, if_exists='replace', index=False)
-        cursor = conn.cursor()
-        print("")
-        print("Database created and Successfully Connected to SQLite")
-    
-        sqlite_select_Query = "select sqlite_version();"
-        cursor.execute(sqlite_select_Query)
-        record = cursor.fetchall()
-        print("SQLite Database Version is: ", record)
-        cursor.close()
-    
-    except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
-    finally:
-        if (conn):
-            conn.close()
-            print("The SQLite connection is closed")    
-            
-#%%
-def SQL_read(table_name):
-    import sqlite3
-    import pandas as pd
-    
-    try:
-        conn = sqlite3.connect(r'C:\Users\daisuke\OneDrive - Temasek Life Sciences Laboratory\Experimental_Data\Hyperspectral_Imaging\hyperspec_SQL.sqlite')
-        cursor = conn.cursor()
-        df = pd.read_sql('select * from hyperspec%s' % table_name, conn)
-        print("")
-        print("Database successfully connected to SQLite")
-    
-        sqlite_select_Query = "select sqlite_version();"
-        cursor.execute(sqlite_select_Query)
-        record = cursor.fetchall()
-        print("SQLite Database Version is: ", record)
-        cursor.close()
-    
-    except sqlite3.Error as error:
-        print("Error while connecting to SQLite", error)
-    finally:
-        if (conn):
-            conn.close()
-            print("The SQLite connection is closed")   
-        
-    return df
 
 #%%
 """
@@ -457,100 +491,3 @@ def spectral_overview_SR(df, path = None):
                           'R428':R428, 'R660':R660, 'R546':R546, 'R970':R970})
     df_overview.to_csv(path + r'\%s_overview.csv' % path.split('\\')[-1], index= True)
     return df_overview
-
-#%%
-def violin_plot (df, group_by = 'ID', data_column = None, cnt = None):
-    
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    
-    # if group_by not in df.columns:
-    #     print ('no %s column found.' %group_by)
-    
-    if data_column not in df.columns:
-        print ('data not found. Check the header name in spreadsheet')
-       
-    mean_df = df.groupby(group_by, as_index = True).mean()
-    df = df.set_index(group_by)    
-    print(mean_df[data_column])
-    plt.figure()
-
-    ax = sns.violinplot(x= df.index, y= data_column, data=df, color="0.8")
-    ax = sns.stripplot(x= df.index, y= data_column, data=df, jitter=True)
-    ax.set_position([0.25,0.3,0.65,0.6])
-    xlabels = ax.xaxis.get_ticklabels(minor=False)
-    
-    for i in range(len(xlabels)):
-        if xlabels[i].get_text() == cnt:
-            ci95 = ax.get_lines()[2*i].get_data()[1]
-            ax = plt.axhline(y = mean_df.loc[cnt, data_column], color = 'gold', linestyle = '-', zorder=-1)
-            ax = plt.axhspan(ci95[0], ci95[1], facecolor= 'yellow', alpha = 0.25, zorder=-1)
-            print (cnt + ' is defined as the control group.')
-
-    
-    plt.xticks(rotation = 90)     
-    fig = ax.get_figure()
-    fig.set_size_inches(mean_df.count()[0]/2 + 1, 4)
-    
-    return fig, ax
-
-
-#%%
-def ANOVA_data (df, data_column = None):
-    
-    import scipy.stats as ss
-    import pandas as pd
-    import researchpy as rp
-#    import statsmodels.stats.multicomp as multi
-    from statsmodels.stats.multicomp import pairwise_tukeyhsd
-
-    if data_column not in df.columns:
-        print('data not found. Check the header name in DataFrame')
-    
-    summary = rp.summary_cont(df[data_column].groupby(df['ID']))
-    summary.index.name = data_column
-    samples = []
-    for group in df['ID'].unique():
-        samples.append(df[data_column][df['ID'] == group].values)
-    f_val, p_val = ss.f_oneway(*samples)
-    if p_val < 0.05:        
-        results = pairwise_tukeyhsd(endog = df[data_column], groups = df['ID'])
-        results = pd.DataFrame(data=results._results_table.data[1:], columns=results._results_table.data[0])
-        results.index.name = data_column
-        print(results)
-    else:
-        print(data_column + ': There is no statistical difference.')
-        results = pd.DataFrame()
-
-    return summary, results
-
-#%%
-
-"""
-Oct 25th
-Reference to reconstruct RGB images
-
-import numpy as np
-import pandas as pd
-
-path = r'C:/Users/Daisuke/OneDrive - Temasek Life Sciences Laboratory/Experimental_Data/Hyperspectral_Imaging/2020-10-14/509_ColorChecker/capture/509.hdr'
-
-cube = hsi_loading(path)
-df = pd.DataFrame()
-df['wavelength'] = np.linspace(400, 1000, 204)
-bands = np.linspace(400, 1000, 204)
-
-locs_B, img_B = hsi_selection(cube)
-locs_G, img_G = hsi_selection(cube)
-locs_R, img_R = hsi_selection(cube)
-
-ref_B, normalized_ref = hsi_spectrum(cube, bands, locs_B['xy'])
-ref_G, normalized_ref = hsi_spectrum(cube, bands, locs_G['xy'])
-ref_R, normalized_ref = hsi_spectrum(cube, bands, locs_R['xy'])
-
-df['B'] = ref_B.mean().values[1:]
-df['G'] = ref_G.mean().values[1:]
-df['R'] = ref_R.mean().values[1:]
-
-df.to_csv(r'C:/Users/Daisuke/OneDrive - Temasek Life Sciences Laboratory/Experimental_Data/Hyperspectral_Imaging/RGB_reference.csv', index = False)
-"""
