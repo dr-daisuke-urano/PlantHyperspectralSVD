@@ -55,9 +55,9 @@ def specim_loading(path):
 
 #%%
 # Reconstruct RGB image from hyperspectral cube
-# RGB reference (.csv file) was made using the ColorChecker sheet. 
+# RGB reference (.csv file) was generated using the ColorChecker sheet. 
 
-def RGB(cube):
+def specim_RGB(cube):
     
     import numpy as np
 
@@ -215,7 +215,7 @@ def plant_selection(cube):
     # Instantiate the CoordinateStore class
     coordinateStore1 = CoordinateStore()
     # Convert the hyperspectral cube to an RGB image
-    img = RGB(cube)
+    img = specim_RGB(cube)
     
     # Set up the OpenCV window and mouse callback
     window_title = 'Double-click to select plants, press "q" to finish'
@@ -272,7 +272,7 @@ def spectral_comparison(df, path=None):
     label = df.index.unique()
 
     # Define SPECIM IQ wavelength bands
-    bands = [397.32, 400.20, 403.09, 405.97, 408.85, 411.74, 414.63, 417.52, 420.40, 423.29, 426.19, 429.08, 431.97, 434.87, 437.76, 440.66, 443.56,
+    specim_wavelength = [397.32, 400.20, 403.09, 405.97, 408.85, 411.74, 414.63, 417.52, 420.40, 423.29, 426.19, 429.08, 431.97, 434.87, 437.76, 440.66, 443.56,
     446.45, 449.35, 452.25, 455.16, 458.06, 460.96, 463.87, 466.77, 469.68, 472.59, 475.50, 478.41, 481.32, 484.23, 487.14, 490.06, 492.97, 495.89, 498.80,
     501.72, 504.64, 507.56, 510.48, 513.40, 516.33, 519.25, 522.18, 525.10, 528.03, 530.96, 533.89, 536.82, 539.75, 542.68, 545.62,
     548.55, 551.49, 554.43, 557.36, 560.30, 563.24, 566.18, 569.12, 572.07, 575.01, 577.96, 580.90, 583.85, 586.80, 589.75, 592.70,
@@ -292,8 +292,8 @@ def spectral_comparison(df, path=None):
 
     # Plot mean reflectance with standard deviation for each sample
     for name in label:
-        plt.plot(bands, df[df.index == name].mean(axis=0), label=name)
-        plt.fill_between(bands,
+        plt.plot(specim_wavelength, df[df.index == name].mean(axis=0), label=name)
+        plt.fill_between(specim_wavelength,
                          df[df.index == name].mean(axis=0) - df[df.index == name].std(axis=0),
                          df[df.index == name].mean(axis=0) + df[df.index == name].std(axis=0),
                          alpha=0.2)
@@ -360,13 +360,13 @@ def plant_masking(cube, threshold=2.2, kn=1):
     import numpy as np
     
     # Convert the hyperspectral cube to RGB image
-    img = RGB(cube)
+    img = specim_RGB(cube)
 
     # Mask white pixels (reflection from a plate) using a brightness threshold
     _, white = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_RGB2GRAY), 235, 1, cv2.THRESH_BINARY_INV)
 
     # A representative leaf reflectance generated with SVD. SPECIM IQ wavelength channels [10:200]
-    model = np.array([0.04069669,  0.04079603,  0.04126037,  0.04213693,  0.04273207,
+    plant_reference_spectrum = np.array([0.04069669,  0.04079603,  0.04126037,  0.04213693,  0.04273207,
             0.04379434,  0.04518137,  0.04713085,  0.04874695,  0.05029235,
             0.0516203 ,  0.05295029,  0.05294916,  0.05332283,  0.05327264,
             0.05344182,  0.05390424,  0.05425218,  0.0543171 ,  0.05522408,
@@ -406,7 +406,7 @@ def plant_masking(cube, threshold=2.2, kn=1):
            -0.03976451, -0.0397357 , -0.04025013, -0.0402305 , -0.03912869])
                      
     # Apply SVD model to hyperspectral data
-    svd_pic = np.dot(cube[:, :, 10:200], model)
+    svd_pic = np.dot(cube[:, :, 10:200], plant_reference_spectrum)
 
     # Threshold the SVD image to create a mask
     _, mask = cv2.threshold(svd_pic, threshold, 1, cv2.THRESH_BINARY_INV)
@@ -495,7 +495,7 @@ def data_extraction(cube, df_loc, threshold = 2.2, kn = 1, dist = 15, path = Non
     ax1.set_title(f'Threshold val: {threshold:.1f}')
     
     ax2 = fig.add_subplot(1, 3, 2)
-    ax2.imshow(np.flip(RGB(cube) * mask[:, :, np.newaxis],2))
+    ax2.imshow(np.flip(specim_RGB(cube) * mask[:, :, np.newaxis],2))
     ax2.axis('off')
     ax2.set_title('Masked image %s' % path.split('\\')[-1])
     
