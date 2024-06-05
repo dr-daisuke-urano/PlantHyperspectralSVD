@@ -38,12 +38,12 @@ conda env create --name PlantHyperspectralSVD --file environment.yml
 
 ## Usage
 ### Step 0 (Prerequisites): 
-Before proceeding with Singular Value Decomposition, background masking, and extraction of leaf pixels from the three distinct areas are required. In this GitHub repository, we provide a simple GUI that assists users in selecting plant leaves and extracting spectral information. The following code obtains the mean reflectance spectra from pixels within the central, paracentral, and peripheral areas, as well as from the entire leaf, and saves them in CSV format. Sample hyperspectral images, control, phosphate deficiency, nitrate deficiency and iron deficiency, are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
+Before proceeding with Singular Value Decomposition, background masking, and extraction of leaf pixels from the three distinct areas are required. In this GitHub repository, we provide a simple GUI that assists users in selecting plant leaves and extracting spectral information. The following code obtains the mean reflectance spectra from pixels within the central, paracentral, and peripheral areas, as well as from the entire leaf, and saves them in CSV format. Sample hyperspectral images for the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
 
 ```python
 """
-i. Download and import PlantHyperspectralSVD.py 
-ii. Run the following code (saved in PlantHyperspectralSVD_DataExtraction.py)
+i. Download the PlantHyperspectralSVD.py file and import it into your Python environment.
+ii. Download the PlantHyperspectralSVD_DataExtraction.py (or copy the following code), then run it:
 """
 from PlantHyperspectralSVD import specim_loading, plant_selection, data_extraction, spectral_comparison 
 import pandas as pd
