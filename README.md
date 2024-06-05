@@ -37,10 +37,62 @@ conda env create --name PlantHyperspectralSVD --file environment.yml
 - scipy 1.13.1
 
 ## Usage
-### Prerequisites: 
-The following code requires two or more hyperspectral images of representative leaves obtained from control and stress conditions. The control and stress condition images should be from the same species and at the same developmental stages (e.g., do not compare leaf reflectance patterns of rice with those of maize).
+### Step 0 (Prerequisites): 
+Before proceeding with Singular Value Decomposition, background masking, and extraction of leaf pixels from the three distinct areas are required. In this GitHub repository, we provide a simple GUI that assists users in selecting plant leaves and extracting spectral information. The following code obtains the mean reflectance spectra from pixels within the central, paracentral, and peripheral areas, as well as from the entire leaf, and saves them in CSV format. Sample hyperspectral images, control, phosphate deficiency, nitrate deficiency and iron deficiency, are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
 
-Before proceeding with step 1, Gaussian smoothing filter could be applied to the hyperspectral cube. In addition, background masking was performed to extract plant pixels from the hyperspectral cube. 
+'''python
+"""
+i. Download and import PlantHyperspectralSVD.py 
+ii. Divide pixel values at all wavelength channels by the respective mean nIR reflectance.
+iii. 
+"""
+from PlantHyperspectralSVD import specim_loading, plant_selection, data_extraction, spectral_comparison 
+import pandas as pd
+import numpy as np
+
+# Absolute path to SPECIM IQ image folder
+path = r'Abosolute\\path\\to\\SPECIM\\IMGE\\FOLDER'
+labels = ['leaf']  # Labels for selected plants
+threshold_val = 2.2  # Threshold value for masking. 
+# Note: This value can be adjusted based on species and experimental conditions.
+# For example, a threshold value of 1 works well for M. polymorpha under control conditions,
+# but a higher value of 5 is required for conditions such as nitrate deficiency.
+
+#%%
+# Load hyperspectral image into numpy cube
+cube = specim_loading(path)
+
+# GUI for plant selection
+# Double-click to select plants, press "q" to finish
+location, _ = plant_selection(cube) 
+
+# Add label column to location DataFrame
+location['label'] = labels  
+
+# Masking and Extraction of spectral data
+# Adjust threshold values as needed 
+spectra, img, masked = data_extraction(cube, location, threshold=threshold_val, path=path) 
+
+# Concatenate spectral data for different areas
+spectra_per_area = pd.DataFrame(np.concatenate([
+    spectra.iloc[:, 2:206].to_numpy(), 
+    spectra.iloc[:, 206:410].to_numpy(), 
+    spectra.iloc[:, 410:614].to_numpy(), 
+    spectra.iloc[:, 614:820].to_numpy()
+], axis=0))
+
+# Create new index labels
+name = [f"{label}_{area}" for area in ['whole', 'peripheral', 'paracentral', 'central'] for label in location['label']]
+
+# Set the new index
+spectra_per_area.index = name
+
+# Call the spectral_comparison function
+spectral_comparison(spectra_per_area, path)
+'''
+
+Note: The images for both control and stress conditions should be of the same species and at similar developmental stages (e.g., avoid comparing leaf reflectance patterns of rice with those of maize).
+
 
 ### Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  
 Plant leaves show high reflectance of near-infrared (nIR) light. While the reflectance at far-red wavelengths (700 – 780 nm) was greatly reduced under various stress conditions, the leaf reflectance at longer wavelengths is highly independent of plant growing conditions. First, we identified the wavelength bands that showed the smallest “coefficient of variations (CoV)” among the wavelength range from 400 to 1000 nm, which can then be used as the reference band to normalize the leaf reflectance spectra. The bands near 900 nm (890 – 910 nm) were originally selected from more than 100 spectral data obtained from control, nitrate deficiency, phosphate deficiency, iron deficiency, magnesium deficiency and calcium deficiency conditions in M. polymorpha. The small CoV at ~900 nm was consistently observed in L. sativa plants. 
