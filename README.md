@@ -2,20 +2,20 @@
 This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ## Background
-Leaf reflectance spectra are widely utilized for diagnosing plant stress, particularly for nutrient deficiencies and pathogen infections, which often manifest as distinct leaf color patterns. Figure 0 shows Marchantia polymorpha plants grown under various nutrient deficiencies. Nitrate deficiency (0xN) and phosphate deficiency (0xP) result in early senescence and the accumulation of purple pigment in the central area, respectively. Iron deficiency (0xFe) induces chlorosis of the thallus starting from the peripheral growing area, while calcium deficiency (0.05xCa) leads to irreversible necrosis of the growing edges. As these leaf color changes are location-dependent, leaf reflectance spectra were separately obtained from three distinct regions: a central circle, paracentral annulus, and peripheral annulus (Figure 0A).
+Leaf reflectance spectra are widely utilized for diagnosing plant stress, particularly for nutrient deficiencies and pathogen infections, which often manifest as distinct leaf color patterns. Figure 0 shows Marchantia polymorpha (liverwort) plants grown under various nutrient deficiencies. Nitrate deficiency (0xN) and phosphate deficiency (0xP) result in early senescence and the accumulation of purple pigment in the central area, respectively. Iron deficiency (0xFe) induces chlorosis of the thallus starting from the peripheral growing area, while calcium deficiency (0.05xCa) leads to irreversible necrosis of the growing edges. As these leaf color changes are location-dependent, leaf reflectance spectra were separately obtained from three distinct regions: a central circle, paracentral annulus, and peripheral annulus (Figure 0A).
 
 <p></P>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure0.png" alt="Alt text" width="70%">
-Figure 0: (A) Illustration depicting the central, paracentral, and peripheral regions of Marchantia polymorpha plants. (B-F) Representative images and corresponding leaf reflectance spectra of M. polymorpha plants cultivated under various nutrient deficiencies. The graphs present mean values (solid lines) with standard deviation (translucent bands). Dashed lines in green, red, and blue denote absorption wavelengths for chlorophyll, anthocyanin, and water, respectively.
+Figure 0: (A) Illustration depicting the central, paracentral, and peripheral regions of liverwort plants. (B-F) Representative images and corresponding leaf reflectance spectra of liverwort cultivated under various nutrient deficiencies. The graphs present mean values (solid lines) with standard deviation (translucent bands). Dashed lines in green, red, and blue denote absorption wavelengths for chlorophyll, anthocyanin, and water, respectively.
 
 ## Project Overview
 Hyperspectral cameras capture the reflectance of light with high spectral resolution, storing this information in a data cube with x, y, and λ dimensions (two-dimensional images with multiple wavelength channels). This project provides Python code for visualizing spatial leaf color patterns using pseudo-color spaces created via singular value decomposition (SVD) of normalized hyperspectral images. The procedure consists of four steps:
 
-1. Normalization: Normalize pixel intensity across all wavelength channels using the mean reflectance near 900 nm (bands from 875 to 925 nm are used in this step).
-2. SVD Transformation: Perform SVD transformation and save the first five SVD spaces.
-3. Pseudo-Color Generation: Generate pseudo-colored images and create density plots along the five SVD color spaces. The user then selects and saves the SVD color space(s) that effectively represent leaf color patterns.
-4. Application: Apply the selected SVD space(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose plant nutrient stresses in Marchantia polymorpha (liverwort) and Lactuca sativa (lettuce).
+1. Normalization: Normalize pixel intensity across all wavelength channels using the mean reflectance near 900 nm.
+2. SVD Transformation: Perform Singular Value Decomposition (SVD) transformation and save the first five SVD components.
+3. Pseudo-Colored Image Generation: Generate pseudo-colored images based on the top SVD components, then select and save the SVD component(s) that best highlight leaf color patterns.
+4. Application: Apply the selected SVD component(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose nutrient stresses in liverwort and lettuce.
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure1.png" alt="Alt text" width="70%">
 Figure 1 Diagram summarizing this project. 
@@ -155,7 +155,7 @@ plt.show()
 Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure4.png" alt="Alt text" width="70%">
-Figure 4. (A) RGB and pseudo-coloured images of M. polymorpha plants treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values were extracted from the peripheral, paracentral, and central areas and shown in the box plots D – F below. Scale bar represents 1 cm. (B) The box plots show the 25th, 50th and 75th percentiles with whiskers showing max and min values within 1.5 x IQR. Coloured dots in the boxplots represent the raw data from individual plants (n = 50 plants). 
+Figure 4. (A) RGB and pseudo-coloured images of liverworts treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values were extracted from the peripheral, paracentral, and central areas and shown in the box plots D – F below. Scale bar represents 1 cm. (B) The box plots show the 25th, 50th and 75th percentiles with whiskers showing max and min values within 1.5 x IQR. Coloured dots in the boxplots represent the raw data from individual plants (n = 50 plants). 
 
 ### Step 4 procedure:
 ```python
