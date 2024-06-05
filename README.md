@@ -43,8 +43,7 @@ Before proceeding with Singular Value Decomposition, background masking, and ext
 ```python
 """
 i. Download and import PlantHyperspectralSVD.py 
-ii. Divide pixel values at all wavelength channels by the respective mean nIR reflectance.
-iii. 
+ii. Run the following code (saved in PlantHyperspectralSVD_DataExtraction.py)
 """
 from PlantHyperspectralSVD import specim_loading, plant_selection, data_extraction, spectral_comparison 
 import pandas as pd
