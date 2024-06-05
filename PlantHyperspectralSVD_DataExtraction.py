@@ -32,7 +32,7 @@ spectra_per_area = pd.DataFrame(np.concatenate([
     spectra.iloc[:, 2:206].to_numpy(), 
     spectra.iloc[:, 206:410].to_numpy(), 
     spectra.iloc[:, 410:614].to_numpy(), 
-    spectra.iloc[:, 614:820].to_numpy()
+    spectra.iloc[:, 614:818].to_numpy()
 ], axis=0))
 
 # Create new index labels

@@ -15,7 +15,7 @@ from glob import glob
 from scipy.stats import zscore
 from PlantHyperspectralSVD import specim_loading, spectral_comparison, specim_RGB
 
-# Wavelength channels of SPECIM IQ camera
+# Wavelength bands of SPECIM IQ camera
 specim_wavelength = [397.32, 400.20, 403.09, 405.97, 408.85, 411.74, 414.63, 417.52, 420.40, 423.29, 426.19, 429.08, 431.97, 434.87, 437.76, 440.66, 443.56,
 446.45, 449.35, 452.25, 455.16, 458.06, 460.96, 463.87, 466.77, 469.68, 472.59, 475.50, 478.41, 481.32, 484.23, 487.14, 490.06, 492.97, 495.89, 498.80,
 501.72, 504.64, 507.56, 510.48, 513.40, 516.33, 519.25, 522.18, 525.10, 528.03, 530.96, 533.89, 536.82, 539.75, 542.68, 545.62,
@@ -31,7 +31,6 @@ specim_wavelength = [397.32, 400.20, 403.09, 405.97, 408.85, 411.74, 414.63, 417
 981.96, 985.05, 988.13, 991.22, 994.31, 997.40, 1000.49, 1003.58
 ]
 
-
 #%%
 '''
 Load all speral files 
@@ -39,75 +38,20 @@ The spectral files contain 204 spectal bands from central, paracentral and perip
 '''
 
 # File path to the Excel file
-file_path = r'C:/Users/Admin/OneDrive - Temasek Life Sciences Laboratory/Manuscript/SR_Auronidin/Cell_Reports_Revision/Table_S1.xlsx'
+file_path = r'C:/Users/daisuke/OneDrive - Temasek Life Sciences Laboratory/Manuscript/SR_Auronidin/Cell_Reports_Revision/Table_S1.xlsx'
 
 # Read all sheets into a dictionary of DataFrames
 all_sheets = pd.read_excel(file_path, sheet_name=None)
 print(all_sheets.keys())
-#%%
+
 all_spectra = pd.DataFrame()
 for key in list(all_sheets.keys())[1:]:
     sheet = all_sheets[key]
-    sheet.insert(0,'treatment',key)
-#    sheet.drop(columns='plant id', inplace=True)
+    sheet.insert(0,'label',key)
     all_spectra = pd.concat([all_spectra, all_sheets[key]])    
 
-
-#%%
-# Access individual DataFrames by sheet name
-df_sheet1 = all_sheets['Sheet1']
-df_sheet2 = all_sheets['Sheet2']
-# Continue for other sheets as needed
-
-# Example of iterating through all sheets
-for sheet_name, df in all_sheets.items():
-    print(f"Sheet name: {sheet_name}")
-    print(df.head())  # Print first few rows of each DataFrame
-
-
-
-
-#%%
-df = pd.DataFrame()
-for files in glob(r'C:\Users\kshalini\OneDrive - Temasek Life Sciences Laboratory\Auronidin-Mass data\Excel files-SR8\*spectrum_SR8.csv'):
-    df = pd.concat([df, pd.read_csv(files)])
-
-# One excel file lacks label column. It's likely 0xFe
-df = df.replace(' ', '0xFe')
-print(df['label'].values)
-
-
-#%%
-'''
-Building of SVD model from all plant images
-'''
-df_all = pd.concat((df.iloc[:,0:5], df.iloc[:,5:].divide(df.iloc[:,167:173].mean(axis = 1).values, axis = 0)), axis = 1)
-
-# whole = df_all.iloc[:, 5+4:5+204]
-# peripheral = df_all.iloc[:, 209+4:209+204]
-# paracentral = df_all.iloc[:, 413+4:413+204]
-# central = df_all.iloc[:, 617+4:617+204]
-# concat_all = np.concatenate((peripheral, paracentral, central), axis = 0)
-# print(concat_all.shape)
-
-# svd = TruncatedSVD(n_components=6, n_iter=7, random_state=42)
-# svd.fit(concat_all)
-# print(svd.singular_values_)
-# print(svd.explained_variance_ratio_)
-
-# '''
-# Show SVD map of whole plant spectra
-# '''
-# svd_values = svd.transform(whole)
-
-# for i in [0,2,4]:
-#     plt.figure(figsize = (4,4))
-#     sns.scatterplot(np.array(svd_values[:,i]), np.array(svd_values[:,i+1]), hue = df_all['label'])
-#     plt.xlabel('Dimension %i (%.1f %%)' % (i+1, (100*svd.explained_variance_ratio_[i])))
-#     plt.ylabel('Dimension %i (%.1f %%)' % (i+2, (100*svd.explained_variance_ratio_[i+1])))
-#     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-#     plt.savefig(r'C:\Users\kshalini\OneDrive - Temasek Life Sciences Laboratory\Auronidin-Mass data\SVD_wholeplant_Dim%i_Dim%i.svg' % (i+1, i+2))
-#     plt.show()
+all_spectra.drop(columns='plant id', inplace=True)
+print(all_spectra)
 
 #%%
 '''
@@ -117,13 +61,16 @@ Selected central and peripheral regions of CNT, 0xFe, 0xP and 0xN
 I decided to use the SVD model with selected spectra for publication (See Figure 2) 
 '''
 
-df_svd = df_all.loc[(df['label'] == '0xFe') | (df['label'] == '0xN') | (df['label'] == '0xP') | (df['label'] == 'CNT')]
-label = np.concatenate((df_svd.iloc[:,2]+"_peripheral", df_svd.iloc[:,2]+"_central"), axis = 0)
+all_spectra = pd.concat((all_spectra.iloc[:,0], all_spectra.iloc[:,1:].divide(all_spectra.iloc[:,163:169].mean(axis = 1).values, axis = 0)), axis = 1)
+selected_spectra = all_spectra.loc[(all_spectra['label'] == 'Cntl') | (all_spectra['label'] == '0xFe') | (all_spectra['label'] == '0xN') | (all_spectra['label'] == '0xP') | (all_spectra['label'] == 'CNT')]
 
-whole = df_svd.iloc[:, 5+4:5+204]
-peripheral = df_svd.iloc[:, 209+4:209+204]
-paracentral = df_svd.iloc[:, 413+4:413+204]
-central = df_svd.iloc[:, 617+4:617+204]
+label = np.concatenate((selected_spectra['label']+"_peripheral", selected_spectra['label']+"_central"), axis = 0)
+
+n = 4
+whole = selected_spectra.iloc[:, 1+n:1+204]
+peripheral = selected_spectra.iloc[:, 204+n:204+204]
+paracentral = selected_spectra.iloc[:, 408+n:408+204]
+central = selected_spectra.iloc[:, 612+n:612+204]
 concat = np.concatenate((peripheral, central), axis = 0)
 print(concat.shape)
 
@@ -137,7 +84,7 @@ for i in [0,2,4]:
     plt.xlabel('Dimention %i (%.1f %%)' % (i+1, (100*svd.explained_variance_ratio_[i])))
     plt.ylabel('Dimention %i (%.1f %%)' % (i+2, (100*svd.explained_variance_ratio_[i+1])))
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-    plt.savefig(r'C:\Users\kshalini\OneDrive - Temasek Life Sciences Laboratory\Auronidin-Mass data\SVD_selected_Dim%i_Dim%i.svg' % (i+1, i+2))
+#    plt.savefig(r'C:\Users\kshalini\OneDrive - Temasek Life Sciences Laboratory\Auronidin-Mass data\SVD_selected_Dim%i_Dim%i.svg' % (i+1, i+2))
     plt.show()
 
 
@@ -252,6 +199,7 @@ for i in [0,1,2,3]:
     svd_pic[np.nonzero(svd_pic)] += 10
     plt.figure(figsize = (210,30))
     plt.imshow(svd_pic, vmax = np.percentile(svd_pic[np.nonzero(svd_pic)], 99.9), vmin = np.percentile(svd_pic[np.nonzero(svd_pic)], 0.01)*0.95, cmap = 'nipy_spectral') # 'gist_stern' 'nipy_spectral'
+
     plt.axis('off')
 #    plt.colorbar()
     plt.title('SVD %i' %i,size=100)
@@ -262,7 +210,6 @@ for i in [0,1,2,3]:
 #%%
 '''
 Box plots of SVD data (wrky mutants)
-
 
 Load all speral files of mutants
 The spectral files contain 204 spectal bands from central, paracentral and peripheral regions
