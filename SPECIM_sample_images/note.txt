@@ -1,4 +1,4 @@
-Sample images of wildtype Marchantia polymorpha plants grown under various conditions: control (no stress), phosphate deficiency, nitrate deficiency, and iron deficiency. For more details, please refer to Krishnamoorthi S (2024).
+Sample images of wildtype Marchantia polymorpha plants grown under various conditions: control (no stress), phosphate deficiency, nitrate deficiency, and iron deficiency. For more details, please refer to Krishnamoorthi S (2024) Cell Reports and Krishnamoorthi S (2024) Figshare.
 
 IDs and corresponding conditions:
 
