@@ -40,7 +40,7 @@ conda env create --name PlantHyperspectralSVD --file environment.yml
 ### Step 0 (Prerequisites): 
 Before proceeding with Singular Value Decomposition, background masking, and extraction of leaf pixels from the three distinct areas are required. In this GitHub repository, we provide a simple GUI that assists users in selecting plant leaves and extracting spectral information. The following code obtains the mean reflectance spectra from pixels within the central, paracentral, and peripheral areas, as well as from the entire leaf, and saves them in CSV format. Sample hyperspectral images, control, phosphate deficiency, nitrate deficiency and iron deficiency, are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
 
-'''python
+```python
 """
 i. Download and import PlantHyperspectralSVD.py 
 ii. Divide pixel values at all wavelength channels by the respective mean nIR reflectance.
@@ -89,7 +89,7 @@ spectra_per_area.index = name
 
 # Call the spectral_comparison function
 spectral_comparison(spectra_per_area, path)
-'''
+```
 
 Note: The images for both control and stress conditions should be of the same species and at similar developmental stages (e.g., avoid comparing leaf reflectance patterns of rice with those of maize).
 
