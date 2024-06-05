@@ -90,9 +90,6 @@ spectra_per_area.index = name
 spectral_comparison(spectra_per_area, path)
 ```
 
-Note: The images for both control and stress conditions should be of the same species and at similar developmental stages (e.g., avoid comparing leaf reflectance patterns of rice with those of maize).
-
-
 ### Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  
 Plant leaves show high reflectance of near-infrared (nIR) light. While the reflectance at far-red wavelengths (700 – 780 nm) was greatly reduced under various stress conditions, the leaf reflectance at longer wavelengths is highly independent of plant growing conditions. First, we identified the wavelength bands that showed the smallest “coefficient of variations (CoV)” among the wavelength range from 400 to 1000 nm, which can then be used as the reference band to normalize the leaf reflectance spectra. The bands near 900 nm (890 – 910 nm) were originally selected from more than 100 spectral data obtained from control, nitrate deficiency, phosphate deficiency, iron deficiency, magnesium deficiency and calcium deficiency conditions in M. polymorpha. The small CoV at ~900 nm was consistently observed in L. sativa plants. 
 
