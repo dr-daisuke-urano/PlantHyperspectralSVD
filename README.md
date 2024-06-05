@@ -24,7 +24,6 @@ Figure 1 Diagram summarizing this project.
 To create a Conda environment with the dependencies used in Krishmoorthi S (2024), download environment.yml file and use the following command:
 
 ```bash
-conda env create -f environment.yml
 conda env create --name PlantHyperspectralSVD --file environment.yml
 ```
 
