@@ -99,6 +99,8 @@ Plant leaves exhibit high reflectance of near-infrared (nIR) light. While reflec
 i. For each pixel, calculate the mean nIR reflectance value from 890 to 910 nm.
 ii. Divide pixel values at all wavelength channels by the respective mean nIR reflectance.
 """
+
+
 ```
 
 ### Step 2: Singular value decomposition (SVD)
