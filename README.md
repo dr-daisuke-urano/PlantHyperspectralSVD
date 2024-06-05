@@ -42,8 +42,9 @@ Before proceeding with Singular Value Decomposition, background masking, and ext
 
 ```python
 """
-i. Download the PlantHyperspectralSVD.py file and import it into your Python environment.
-ii. Download the PlantHyperspectralSVD_DataExtraction.py (or copy the following code), then run it:
+i. Download SPECIM IQ sample images
+ii. Download the PlantHyperspectralSVD.py file and import it into your Python environment.
+iii. Download the PlantHyperspectralSVD_DataExtraction.py (or copy the following code), then run it:
 """
 from PlantHyperspectralSVD import specim_loading, plant_selection, data_extraction, spectral_comparison 
 import pandas as pd
