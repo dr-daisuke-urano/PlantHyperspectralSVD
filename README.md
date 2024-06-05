@@ -6,7 +6,7 @@ Leaf reflectance spectrum is widely used for plant stress diagnostics, especiall
 
 <p></P>
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure0.png" alt="Alt text" width="70%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure0.png" alt="Alt text" width="70%">
 Figure 0: Summary of spectral data obtained from Marchantia polymorpha. (A) Leaf reflectance spectra were obtained separately from central, paracentral and peripheral regions. (B-F) Representative images and leaf reflectance spectra of Marchantia polymorpha grown under nutrient deficiency. The graphs show the mean values (solid lines) with s.d. (translucent bands). Green, red and blue dashed lines indicate absorption wavelengths for chlorophyll, anthocyanin and water.
 
 ## Project Overview
@@ -17,7 +17,7 @@ Hyperspectral cameras capture the reflectance of light with high spectral resolu
 3. Pseudo-Color Generation: Generate pseudo-colored images and create density plots along the five SVD color spaces. The user then selects and saves the SVD color space(s) that effectively represent leaf color patterns.
 4. Application: Apply the selected SVD space(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose plant nutrient stresses in Marchantia polymorpha (liverwort) and Lactuca sativa (lettuce).
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure1.png" alt="Alt text" width="70%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure1.png" alt="Alt text" width="70%">
 Figure 1 Diagram summarizing this project. 
 
 ## Dependencies
@@ -57,7 +57,7 @@ ii. Divide pixel values at all wavelength channels by the respective mean nIR re
 ### Step 2: Singular value decomposition (SVD)
 SVD is a widely used method for dimensionality reduction. Most of the spectral information spanning different wavelength channels can be projected into a small number of dimensional spaces. This method is effective in extracting non-redundant spectral features which possibly highlight anomalous leaf color patterns. 
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure2.png" alt="Alt text" width="70%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure2.png" alt="Alt text" width="70%">
 Figure 2. Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  (A, B) Reflectance spectra obtained from representative plant leaves grown under control (A) and phosphate deficiency (B) conditions. Leaf reflectance at nIR bands from 890 to 910 nm are minimally affected by nutrient deficiencies but rather affected by light conditions. Blue graphs show the original reflectance spectra from leaf pixels. Orange graphs show reflectance spectra from the same pixels after dividing the original reflectance values by the mean reflectance from 890 to 910 nm. The solid lines with transparent bands show the mean values with S.D. Red vertical bands show the wavelength from 890 to 910 nm. 
 
 
@@ -72,7 +72,7 @@ ii. Run singular value decomposition algorithm with seven iterations, and save t
 ### Step 3: Transformation of the representative images into SVD spaces 
 The transformation matrices of SVD can be used to project high-dimensional hyperspectral data into a small-dimensional space (two-dimensional image with six wavelength channels obtained with the SVD transformation matrix). Each of major SVD channels highlights distinct spectral features contained in the original data cube. 
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure3-1.png" alt="Alt text" width="50%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure3-1.png" alt="Alt text" width="50%">
 Figure 3-1. Singular Value Decomposition. In this project, leaf reflectance spectra are represented by a matrix M, where each column corresponds to different wavelengths, and each row corresponds to individual plants. SVD decomposes this matrix A into three matrices: U, Σ, and V*. The left singular vectors U (columns of U) capture distinct patterns or characteristics present in the reflectance spectra. Specifically, the four columns of U represent values in the first four dimensions of SVD, which can be thought of as unique features extracted from the data.
 Now, focus on the right singular vectors V*, or more precisely, the rows of V*. The first four rows of V* act as a weight matrix, revealing how leaf reflectance at individual wavelengths contribute to the identified patterns represented by the first four SVD modes. Each row in V* helps us understand the significance of specific wavelengths in shaping the major patterns (SVD0 – SVD3) discovered in the leaf reflectance spectra. Image source: Wikipedia (https://en.wikipedia.org/wiki/Singular_value_decomposition).<p></p>
 
@@ -105,7 +105,7 @@ plt.show()
 ### Step 4: Pseudo-coloring of hyperspectral leaf images
 Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figure4.png" alt="Alt text" width="70%">
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure4.png" alt="Alt text" width="70%">
 Figure 4. (A) RGB and pseudo-coloured images of M. polymorpha plants treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values were extracted from the peripheral, paracentral, and central areas and shown in the box plots D – F below. Scale bar represents 1 cm. (B) The box plots show the 25th, 50th and 75th percentiles with whiskers showing max and min values within 1.5 x IQR. Coloured dots in the boxplots represent the raw data from individual plants (n = 50 plants). 
 
 ### Step 4 procedure:
