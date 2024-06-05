@@ -255,7 +255,7 @@ def plant_selection(cube):
     return roi_information, img
 
 #%%
-def spectral_comparison(df, path=None):
+def specim_plot(df, path=None, band_range=range(0,204)):
     """
     Plot spectral comparison of different samples with mean reflectance and standard deviation.
 
@@ -286,7 +286,8 @@ def spectral_comparison(df, path=None):
     932.74, 935.81, 938.88, 941.95, 945.02, 948.10, 951.17, 954.24, 957.32, 960.40, 963.47, 966.55, 969.63, 972.71, 975.79, 978.88,
     981.96, 985.05, 988.13, 991.22, 994.31, 997.40, 1000.49, 1003.58
     ]
-
+    
+    specim_wavelength = [specim_wavelength[i] for i in band_range]
     # Create a new figure
     fig = plt.figure()
 
@@ -305,7 +306,8 @@ def spectral_comparison(df, path=None):
     plt.axvline(x=970, color='lightblue', linestyle='--', zorder=-1)
 
     # Add ptitle, labels and legend
-    plt.title('Mean reflectance ± SD, image %s' % path.split('\\')[-1])
+    if path != None:
+        plt.title('Mean reflectance ± SD, image %s' % path.split('\\')[-1])
     plt.xlabel('Wavelength[nm]')
     plt.ylabel('Reflectance')
     plt.legend(loc='lower right')
@@ -405,7 +407,7 @@ def plant_masking(cube, threshold=2.2, kn=1):
            -0.04026839, -0.0399152 , -0.04082155, -0.04049295, -0.04036159,
            -0.03976451, -0.0397357 , -0.04025013, -0.0402305 , -0.03912869])
                      
-    # Apply SVD model to hyperspectral data
+    # Apply the representative leaf reflectance to hyperspectral cube
     svd_pic = np.dot(cube[:, :, 10:200], plant_reference_spectrum)
 
     # Threshold the SVD image to create a mask
@@ -528,65 +530,3 @@ def data_extraction(cube, df_loc, threshold = 2.2, kn = 1, dist = 15, path = Non
         df_spectrum.to_csv(path + r'\%s_spectrum.csv' % path.split('\\')[-1], index=True)                
 
     return df_spectrum, img, masked_cube
-
-#%%
-#     """
-#     Calculate various spectral agricultural indices from spectral reflectance data.
-
-#     Parameters:
-#         df (DataFrame): DataFrame containing spectral reflectance data.
-#         path (str): Path to save the output CSV file.
-
-#     Returns:
-#         DataFrame: DataFrame containing calculated spectral indices.
-
-#     ------------------------------
-#     Anthocyanin reflectance index ARI:   1/550nm−1/700nm
-#     Modified ARI mARI: (1/550nm−1/700nm)⋅NIR  
-    
-#     Carotenoid reflectance index CRI550: 1/510nm-1/550nm
-#     Carotenoid reflectance index CRI700: 1/510nm-1/700nm
-#     new Carotenoid Index nCI: 720nm/521nm - 1
-    
-#     Leaf    Chlorophyll Index LCI: ([850]−[710])/([850]+[680])
-#     MERIS Terrestrial chlorophyll index MTCI: 754nm−709nm/709nm−681nm
-#     Modified Chlorophyll Absorption Ratio Index 710 	MCARI710 	((750nm−710nm)−0.2(750nm−550nm))*(750nm/710nm)
-    
-#     Water Index WI: 900nm/970nm
-    
-#     Single bands
-#         Chlorophyll a: 428nm, 660nm
-#         Chlorophyll b: 453nm, 645nm
-#         Anthocyanin (pH 1): 546nm
-#         Water : 970nm, 1450nm, 1930nm
-#     """
-# def agricultural_index(df, path = None):
-#     import numpy as np
-#     import pandas as pd
-    
-#     df.columns = np.linspace(400, 1000, 204)
-    
-#     ARI = np.reciprocal(df.iloc[:, abs(df.columns - 550) <= 5].mean(axis =1)) - np.reciprocal(df.iloc[:, abs(df.columns - 700) <= 5].mean(axis =1))
-#     mARI = ARI * df.iloc[:, abs(df.columns - 800) <= 50].mean(axis =1) 
-    
-#     CRI550 = np.reciprocal(df.iloc[:, abs(df.columns - 510) <= 5].mean(axis =1)) - np.reciprocal(df.iloc[:, abs(df.columns - 550) <= 5].mean(axis =1))
-#     CRI700 = np.reciprocal(df.iloc[:, abs(df.columns - 510) <= 5].mean(axis =1)) - np.reciprocal(df.iloc[:, abs(df.columns - 700) <= 5].mean(axis =1))
-#     CARI = df.iloc[:, abs(df.columns - 720) <= 5].mean(axis =1) / df.iloc[:, abs(df.columns - 521) <= 5].mean(axis =1) - 1
-    
-#     LCI = (df.iloc[:, abs(df.columns - 850) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 710) <= 5].mean(axis =1)) / (df.iloc[:, abs(df.columns - 850) <= 5].mean(axis =1) + df.iloc[:, abs(df.columns - 680) <= 5].mean(axis =1))
-#     MTCI = (df.iloc[:, abs(df.columns - 754) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 709) <= 5].mean(axis =1)) / (df.iloc[:, abs(df.columns - 709) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 681) <= 5].mean(axis =1))
-#     MCARI710 = ((df.iloc[:, abs(df.columns - 750) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 710) <= 5].mean(axis =1)) - 0.2*(df.iloc[:, abs(df.columns - 750) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 550) <= 5].mean(axis =1))) / (df.iloc[:, abs(df.columns - 750) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 710) <= 5].mean(axis =1))
-    
-#     WI = df.iloc[:, abs(df.columns - 900) <= 5].mean(axis =1) / df.iloc[:, abs(df.columns - 970) <= 5].mean(axis =1) 
-#     WI880 = (df.iloc[:, abs(df.columns - 970) <= 5].mean(axis =1) - df.iloc[:, abs(df.columns - 880) <= 5].mean(axis =1)) / (df.iloc[:, abs(df.columns - 970) <= 5].mean(axis =1) + df.iloc[:, abs(df.columns - 880) <= 5].mean(axis =1))
-    
-#     R428 = df.iloc[:, abs(df.columns - 428) <= 5].mean(axis =1)
-#     R546 = df.iloc[:, abs(df.columns - 546) <= 5].mean(axis =1)
-#     R660 = df.iloc[:, abs(df.columns - 660) <= 5].mean(axis =1)
-#     R970 = df.iloc[:, abs(df.columns - 970) <= 5].mean(axis =1)
-    
-#     agricultural_index = pd.DataFrame({'ARI(1R550-1R700)':ARI,'mARI':mARI,'LCI(chl)':LCI, 'MTCI(chl)':MTCI, 'MCARI710(chl)':MCARI710,
-#                           'CRI550':CRI550, 'CRI700':CRI700, 'CARI':CARI, 'WI(R900 R970 ratio)':WI, 'WI(R970-R880 R970+R880 ratio)':WI880,
-#                           'R428':R428, 'R660':R660, 'R546':R546, 'R970':R970})
-#     agricultural_index.to_csv(path + r'\%s_overview.csv' % path.split('\\')[-1], index= True)
-#     return agricultural_index
