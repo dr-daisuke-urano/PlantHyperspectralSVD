@@ -2,12 +2,12 @@
 This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ## Background
-Leaf reflectance spectra are widely utilized for diagnosing plant stresses, which often manifest as distinct leaf color patterns. Figure 0 shows Marchantia polymorpha (liverwort) plants grown under various nutrient deficiencies. Nitrate deficiency (0xN) and phosphate deficiency (0xP) result in early senescence and purple pigmentation in the central area, respectively. Iron deficiency (0xFe) induces leaf chlorosis starting from the peripheral growing area, while calcium deficiency (0.05xCa) leads to irreversible necrosis of the growing edges. These color changes are location-dependent, as shown in leaf reflectance spectra separately obtained from three distinct regions: a central circle, paracentral annulus, and peripheral annulus (Figure 0A).
+Leaf reflectance spectra are widely utilized for diagnosing plant stresses, which often manifest as distinct leaf color patterns. Figure 1 shows Marchantia polymorpha (liverwort) plants grown under various nutrient deficiencies. Nitrate deficiency (0xN) and phosphate deficiency (0xP) result in early senescence and purple pigmentation in the central area, respectively. Iron deficiency (0xFe) induces leaf chlorosis starting from the peripheral growing area, while calcium deficiency (0.05xCa) leads to irreversible necrosis of the growing edges. These color changes are location-dependent, as shown in leaf reflectance spectra separately obtained from three distinct regions: a central circle, paracentral annulus, and peripheral annulus (Figure 1A).
 
 <p></P>
 
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure0.png" alt="Alt text" width="70%">
-Figure 0: (A) Illustration depicting the central, paracentral, and peripheral regions of liverworts. (B-F) Images and corresponding reflectance spectra of liverworts cultivated under various nutrient deficiencies. Dashed lines in green, red, and blue denote absorption wavelengths for chlorophyll, anthocyanin, and water, respectively.
+<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure1.png" alt="Alt text" width="70%">
+Figure 1: (A) Illustration depicting the central, paracentral, and peripheral regions of liverworts. (B-F) Images and corresponding reflectance spectra of liverworts cultivated under various nutrient deficiencies. Dashed lines in green, red, and blue denote absorption wavelengths for chlorophyll, anthocyanin, and water, respectively.
 
 ## Project Overview
 The SPECIM IQ hyperspectral camera used in this study generates 512x512 pixel images with 204 wavelength channels. We identified SVD components that best highlight leaf color changes using the following steps and applied the SVD components to visualize specific leaf color changes associated with nutrient deficiency responses.
