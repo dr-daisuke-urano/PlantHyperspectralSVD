@@ -12,11 +12,11 @@ Figure 1: (A) Illustration depicting the central, paracentral, and peripheral re
 ## Project Overview
 The SPECIM IQ hyperspectral camera generates 512x512 pixel images with 204 wavelength channels. We identified SVD components that best highlight leaf color changes using the following steps and applied the SVD components to visualize specific leaf color changes associated with nutrient deficiency responses.
 
-Step 0: Reflectance Spectra: Obtain Leaf Reflectance Spectra from a central circle, paracentral annulus, and peripheral annulus.</n>
-Step 1: Normalization: Normalize reflectance spectra using the reflectance near 900 nm.
-Step 2: SVD Transformation: Perform SVD transformation, then select and save the SVD component(s) that best highlight leaf color patterns.
-Step 3: Pseudo-Colored Image Generation: Generate pseudo-colored images using the top SVD components.
-Step 4: Application: Apply the selected SVD component(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose nutrient stresses in liverwort and lettuce.
+0. Reflectance Spectra: Obtain Leaf Reflectance Spectra from a central circle, paracentral annulus, and peripheral annulus.
+1. Normalization: Normalize reflectance spectra using the reflectance near 900 nm.
+2. SVD Transformation: Perform SVD transformation, then select and save the SVD component(s) that best highlight leaf color patterns.
+3. Pseudo-Colored Image Generation: Generate pseudo-colored images using the top SVD components.
+4. Application: Apply the selected SVD component(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose nutrient stresses in liverwort and lettuce.
 
 ## Dependencies
 To create a Conda environment with the dependencies used in Krishmoorthi S (2024), download environment.yml file and use the following command:
