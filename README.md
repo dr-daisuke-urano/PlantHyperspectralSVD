@@ -12,12 +12,12 @@ Figure 1: (A) Illustration depicting the central, paracentral, and peripheral re
 ## Project Overview
 The SPECIM IQ hyperspectral camera generates 512x512 pixel images with 204 wavelength channels. We identified SVD components that best highlight leaf color changes using the following steps and applied the SVD components to visualize specific leaf color changes associated with nutrient deficiency responses.
 
-0. Reflectance Spectra: Obtain Leaf Reflectance Spectra from a central circle, paracentral annulus, and peripheral annulus.
-1. Normalization: Normalize reflectance spectra using the reflectance near 900 nm.
-2. SVD Transformation: Perform SVD transformation, then select and save the SVD component(s) that best highlight leaf color patterns.
-3. Pseudo-Colored Image Generation: Generate pseudo-colored images using the top SVD components.
-4. Application: Apply the selected SVD component(s) to hyperspectral images of other leaves. In our publication, these pseudo-colored images were used to diagnose nutrient stresses in liverwort and lettuce.
-
+0. Reflectance Spectra: Obtain leaf reflectance spectra from three regions: the central circle, paracentral annulus, and peripheral annulus.
+1. Normalization: Normalize the reflectance spectra using the reflectance near 900 nm.
+2. SVD Transformation: Perform Singular Value Decomposition (SVD) and plot the leaf spectra in the top SVD dimensions.
+3. SVD Weight Matrix: Select and save the SVD weight matrices that best highlight leaf color patterns.
+4. Pseudo-Colored Image Generation: Generate pseudo-colored images using the top SVD components.
+   
 ## Dependencies
 To create a Conda environment with the dependencies used in Krishmoorthi S (2024), download environment.yml file and use the following command:
 
@@ -73,7 +73,7 @@ specim_plot(spectra_per_area, path) # Call the specim plot function
 ```
 
 ### Step 1: Normalization of leaf reflectance spectra with nIR bands.  
-Leaf reflectance values are highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
+Leaf reflectance is highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
 
 ```python
 # Read each CSV file and concatenate them into one DataFrame
@@ -142,14 +142,14 @@ for i in [0, 2]:
     plt.show()
 ```
 
-### Step 3: Pseudo-Colored Image Generation with SVD weight matrix
-In Figure 3-1, leaf reflectance spectra are represented by a matrix M, where each column corresponds to different wavelengths, and each row corresponds to individual plants. SVD decomposes this matrix A into three matrices: U, Σ, and V*. The right singular vectors V*, or more precisely, the rows of V*, act as a weight matrix, revealing how leaf reflectance at individual wavelengths contribute to the identified patterns within the top SVD components.  
+### Step 3: SVD weight matrix
+Select SVD weight vector(s) to highlight leaf patterns linked with plant nutrient stresses. These SVD weight vectors, derived from the right singular matrix V*, can be applied to hyperspectral leaf images to visualize and measure stress symptoms. Figure 3-1 shows how SVD breaks down leaf reflectance spectra (M) into U, Σ, and V* matrices. The rows of V* act as a weight matrix, showing how individual wavelengths contribute to identified stress patterns within the top SVD components.
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure3-1.png" alt="Alt text" width="50%">
 Figure 3-1. Singular Value Decomposition. Image source: Wikipedia (https://en.wikipedia.org/wiki/Singular_value_decomposition).<p></p>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure3-2.png" alt="Alt text" width="100%">
-Figure 3-2. (A) SVD analysis of thallus reflectance spectra. Thallus reflectance from the whole area is plotted on the first four columns of left singular vectors (SVD 0 – SVD 3) that were calculated from the central and peripheral spectral data. Colours show different nutrient deficiency treatments. (B) Line graphs showing the right singular vector rows for the first four dimensions of SVD. Green, red and blue vertical lines show absorption wavelengths for chlorophyll, anthocyanin and water.  Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
+Figure 3-2. (A) The first four SVD dimentions of leaf reflectance spectra. Colours show different nutrient deficiency treatments. (B) The SVD weight matrix. Green, red and blue vertical lines show absorption wavelengths for chlorophyll, anthocyanin and water.  Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ```python
 '''
@@ -218,8 +218,8 @@ for i in [0, 1, 2, 3]:
     fig, _ = SVD_box_plot(df_boxplot, group_by='ID', data_column=f'SVD {i}')
 ```
 
-### Step 4: Pseudo-coloring of hyperspectral leaf images
-Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
+### Step 4: Pseudo-Colored Image Generation
+Apply the selected SVD weight matrices to hyperspectral images of plants. Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure4.png" alt="Alt text" width="70%">
 Figure 4. (A, B) RGB and pseudo-coloured images of liverworts treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values are extracted from the peripheral, paracentral, and central areas and shown in the box plots. Scale bar represents 1 cm.  
