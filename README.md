@@ -79,10 +79,6 @@ Plant leaves exhibit high reflectance of near-infrared (nIR) light. While reflec
 
 ### Step 1 procedure: 
 ```python
-"""
-i. For each pixel, calculate the mean nIR reflectance value from 890 to 910 nm.
-ii. Divide pixel values at all wavelength channels by the respective mean nIR reflectance.
-"""
 # Read each CSV file and concatenate them into one DataFrame
 all_spectra = pd.DataFrame()
 for files in glob(r'PATH\\TO\\SPECIM_sample_spectra\\*spectrum.csv'):
