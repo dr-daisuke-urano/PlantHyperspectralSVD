@@ -72,8 +72,8 @@ spectra_per_area.index = [f"{label}_{area}" for area in ['whole', 'peripheral', 
 specim_plot(spectra_per_area, path) # Call the specim plot function
 ```
 
-### Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  
-Visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for plant stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of plant growing conditions, which is ideal for the normalization of the leaf reflectance spectra. In this study, the 890–910 nm bands are utilized as the reference to normalize the spectral data.
+### Step 1: Normalization of leaf reflectance spectra with nIR bands.  
+Leaf reflectance values are highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for plant stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of plant growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
 
 ### Step 1 procedure: 
 ```python
