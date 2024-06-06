@@ -156,7 +156,7 @@ plt.show()
 Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure4.png" alt="Alt text" width="70%">
-Figure 4. (A) RGB and pseudo-coloured images of liverworts treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values were extracted from the peripheral, paracentral, and central areas and shown in the box plots D – F below. Scale bar represents 1 cm. (B) The box plots show the 25th, 50th and 75th percentiles with whiskers showing max and min values within 1.5 x IQR. Coloured dots in the boxplots represent the raw data from individual plants (n = 50 plants). 
+Figure 4. (A, B) RGB and pseudo-coloured images of liverworts treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values are extracted from the peripheral, paracentral, and central areas and shown in the box plots. Scale bar represents 1 cm.  
 
 ### Step 4 procedure:
 ```python
