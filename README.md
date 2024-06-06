@@ -10,7 +10,7 @@ Leaf reflectance spectra are widely utilized for diagnosing plant stresses, whic
 Figure 1: (A) Illustration depicting the central, paracentral, and peripheral regions of liverworts. (B-F) Images and corresponding reflectance spectra of liverworts cultivated under various nutrient deficiencies. Dashed lines in green, red, and blue denote absorption wavelengths for chlorophyll, anthocyanin, and water, respectively.
 
 ## Project Overview
-The SPECIM IQ hyperspectral camera generates 512x512 pixel images with 204 wavelength channels. We identified SVD components that best highlight leaf color changes using the following steps and applied the SVD components to visualize specific leaf color changes associated with nutrient deficiency responses.
+The SPECIM IQ hyperspectral camera generates 512x512 pixel images with 204 wavelength channels. We identified SVD components that best highlight leaf color changes using the following steps and applied the SVD weight vectors to visualize specific leaf color changes associated with nutrient deficiency responses.
 
 0. Reflectance Spectra: Obtain leaf reflectance spectra from three regions: the central circle, paracentral annulus, and peripheral annulus.
 1. Normalization: Normalize the reflectance spectra using the reflectance near 900 nm.
