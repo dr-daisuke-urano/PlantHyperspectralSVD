@@ -75,7 +75,6 @@ specim_plot(spectra_per_area, path) # Call the specim plot function
 ### Step 1: Normalization of leaf reflectance spectra with nIR bands.  
 Leaf reflectance values are highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
 
-### Step 1 procedure: 
 ```python
 # Read each CSV file and concatenate them into one DataFrame
 all_spectra = pd.DataFrame()
@@ -114,7 +113,6 @@ central = all_spectra.iloc[:, 617 + n:617 + 204]
 ### Step 2: Singular value decomposition (SVD)
 SVD is widely used for dimensionality reduction, allowing most of the spectral information across different wavelength channels to be projected into a smaller number of dimensions. We utilized SVD to extract non-redundant spectral features, which could highlight anomalous leaf color patterns.
 
-### Step 2 procedure: 
 ```python
 '''
 Step 2-1: SVD Transformation
@@ -155,7 +153,6 @@ Now, focus on the right singular vectors V*, or more precisely, the rows of V*. 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure3-2.png" alt="Alt text" width="100%">
 Figure 3-2. (A) SVD analysis of thallus reflectance spectra. Thallus reflectance from the whole area is plotted on the first four columns of left singular vectors (SVD 0 – SVD 3) that were calculated from the central and peripheral spectral data. Colours show different nutrient deficiency treatments. (B) Line graphs showing the right singular vector rows for the first four dimensions of SVD. Green, red and blue vertical lines show absorption wavelengths for chlorophyll, anthocyanin and water.  Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
 
-### Step 3 procedure:
 ```python
 '''
 Step 3: Generation of SVD pseudo-color
@@ -229,7 +226,6 @@ Based on the leaf images and density plots generated with different SVD channels
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure4.png" alt="Alt text" width="70%">
 Figure 4. (A, B) RGB and pseudo-coloured images of liverworts treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values are extracted from the peripheral, paracentral, and central areas and shown in the box plots. Scale bar represents 1 cm.  
 
-### Step 4 procedure:
 ```python
 '''
 Step 4: Application
