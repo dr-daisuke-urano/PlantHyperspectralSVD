@@ -77,7 +77,8 @@ Leaf reflectance is highly affected by lighting conditions. To minimize variatio
 
 ```python
 """
-i. Download SPECIM IQ sample spectra (or generate spectra using the GUI in the step 0). Note that the sample sepctra files contain ImageID, PlantID, area, radius at the first four columns.
+i. Download SPECIM IQ sample spectra (or generate spectra using the GUI in the step 0). 
+Note: The files contain ImageID, PlantID, growing_condition (label), area, and radius in the first 5 columns.
 ii. Download the PlantHyperspectralSVD.py file and import it into your Python environment.
 iii. Download the PlantHyperspectralSVD_Analysis.py (or copy the following code), then run it:
 """
