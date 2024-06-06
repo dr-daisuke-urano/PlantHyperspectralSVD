@@ -36,7 +36,7 @@ conda env create --name PlantHyperspectralSVD --file environment.yml
 
 ## Usage
 ### Step 0 (Prerequisites): 
-Before proceeding with Singular Value Decomposition, background masking, and extraction of leaf pixels from the three distinct areas are required. In this GitHub repository, we provide a simple GUI that assists users in selecting plant leaves and extracting spectral information from hyperspectral images obtained with the SPECIM IQ camera. The following code obtains the mean reflectance spectra from pixels within the central, paracentral, and peripheral areas, as well as from the entire leaf, and saves them in CSV format. Sample hyperspectral images for the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
+Background masking and ROI selection (i.e., leaf pixels within the three distinct regions) are required to obtain leaf reflectance spectra. We provide a simple GUI that assists users in masking the background, selecting plants, and obtaining mean reflectance spectra from the central, paracentral, and peripheral areas, as well as from the whole plants. The data are saved in CSV format. Sample hyperspectral images for the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
 
 ```python
 """
@@ -73,7 +73,7 @@ specim_plot(spectra_per_area, path) # Call the specim plot function
 ```
 
 ### Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  
-Plant leaves exhibit high reflectance of near-infrared (nIR) light. While reflectance at far-red wavelengths (700–780 nm) is significantly reduced under stress, reflectance at longer wavelengths remains relatively stable, regardless of plant growing conditions. In this project, we observed that bands near 900 nm exhibit the smallest Coefficients of Variation (CoV) among the wavelength range from 400 to 1000 nm. Therefore, we utilized the 890–910 nm nm bands as the reference to normalize the leaf reflectance spectra. The small CoV at ~900 nm was consistently observed in lettuce.
+Visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for plant stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of plant growing conditions, which is ideal for the normalization of the leaf reflectance spectra. In this study, the 890–910 nm bands are utilized as the reference to normalize the spectral data.
 
 ### Step 1 procedure: 
 ```python
