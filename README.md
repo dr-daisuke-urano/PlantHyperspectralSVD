@@ -219,10 +219,10 @@ for i in [0, 1, 2, 3]:
 ```
 
 ### Step 4: Pseudo-Colored Image Generation
-Apply the selected SVD weight matrices to hyperspectral images of plants. Based on the leaf images and density plots generated with different SVD channels, users select SVD channel(s) that highlight leaf patterns associated with plant nutrient stresses and save the transformation matrix in the image processing software. The transformation matrix can be applied to hyperspectral images of any other leaves to help camera users to visually assess and quantify plant stress symptoms.<p></p>
+Utilize the chosen SVD weight matrices on hyperspectral plant images. After analyzing plant images and scatterplots in the SVD dimensions, we identified SVD1, SVD2, and SVD3 as closely related with leaf greenness, purple pigmentation, and senescence, respectively. These three SVD weight vectors were then applied to hyperspectral images of liverworts to visually evaluate and quantify plant stress symptoms. <p></p>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure4.png" alt="Alt text" width="70%">
-Figure 4. (A, B) RGB and pseudo-coloured images of liverworts treated under full Yamagami (Cntl), 0 mM NO3 (0xN), 0 mM PO4 (0xP) and 0 mM Fe (0xFe) conditions. Colour bars represent pixel intensities in the pseudo-colour spaces SVD 1-3. Red and pink arrows indicate pigmented and senesced thallus areas in RGB, SVD2 and SVD3 images. The values are extracted from the peripheral, paracentral, and central areas and shown in the box plots. Scale bar represents 1 cm.  
+Figure 4. (A) RGB and pseudo-colored images of liverworts cultivated under Control, Nitrate Deficiency, Phosphate Deficiency, and Iron Deficiency conditions. Red arrows highlight pigmented and senesced regions in RGB, SVD2, and SVD3 images. Scale bar = 1 cm. (B) Boxplots illustrating the values along the top SVD dimensions extracted from peripheral, paracentral, and central areas. 
 
 ```python
 '''
