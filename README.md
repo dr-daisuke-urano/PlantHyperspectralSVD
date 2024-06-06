@@ -115,7 +115,7 @@ SVD is widely used for dimensionality reduction, allowing most of the spectral i
 
 ```python
 '''
-Step 2-1: SVD Transformation
+Step 2: Singular value decomposition (SVD)
 Perform Singular Value Decomposition (SVD) transformation and save the first four SVD components. 
 '''
 
@@ -153,8 +153,8 @@ Figure 3-2. (A) The first four SVD dimentions of leaf reflectance spectra. Colou
 
 ```python
 '''
-Step 3: Generation of SVD pseudo-color
-Identify the SVD component(s) that best highlight leaf color patterns.
+Step 3: SVD weight matrix
+plot the SVD weight matrix that would highlights leaf color patterns.
 The right singular vectors V* represent a weight matrix, revealing how leaf reflectance at individual wavelengths contributes to the identified patterns.
 '''
 
@@ -182,40 +182,6 @@ plt.xlabel('Wavelength [nm]')
 plt.ylabel('Values')
 plt.legend()
 plt.show()
-```
-```python
-'''
-Plot SVD components values in box plots. 
-'''
-def SVD_box_plot(df, group_by='ID', data_column=None):
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-
-    # Set colors for the box plot
-    colors = np.repeat(sns.color_palette()[1:4], repeats=4, axis=0)
-
-    # Calculate mean values grouped by the specified column
-    mean_df = df.groupby(group_by, as_index=True).mean()
-    df = df.set_index(group_by)
-    print(mean_df[data_column])
-
-    # Create the box plot
-    plt.figure()
-    ax = sns.boxplot(x=df.index, y=data_column, data=df, color="0.8")
-    ax = sns.stripplot(x=df.index, y=data_column, data=df, jitter=True, size=4, palette=colors)
-    ax.set_position([0.25, 0.3, 0.65, 0.6])
-    plt.xticks(rotation=90)
-    fig = ax.get_figure()
-    fig.set_size_inches(mean_df.count()[0] / 2 + 1, 4)
-    plt.xlabel(None)
-
-    return fig, ax
-
-# Create box plots for each SVD component
-for i in [0, 1, 2, 3]:
-    df_boxplot = pd.DataFrame(np.dot(np.concatenate((peripheral, paracentral, central), axis=0), svd.components_[i]), columns=[f'SVD {i}'])
-    df_boxplot['ID'] = np.concatenate((all_spectra['label'] + '_peripheral', all_spectra['label'] + '_paracentral', all_spectra['label'] + '_central'))
-    fig, _ = SVD_box_plot(df_boxplot, group_by='ID', data_column=f'SVD {i}')
 ```
 
 ### Step 4: Pseudo-Colored Image Generation
@@ -274,6 +240,41 @@ for i in [1,2,3]:
     plt.colorbar()
     plt.title(f'SVD {i}', size=cubes.shape[1]//10)
     plt.show()
+```
+
+```python
+'''
+Generate boxplots illustrating the values along the top SVD dimensions extracted from peripheral, paracentral, and central areas.. 
+'''
+def SVD_box_plot(df, group_by='ID', data_column=None):
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+
+    # Set colors for the box plot
+    colors = np.repeat(sns.color_palette()[1:4], repeats=4, axis=0)
+
+    # Calculate mean values grouped by the specified column
+    mean_df = df.groupby(group_by, as_index=True).mean()
+    df = df.set_index(group_by)
+    print(mean_df[data_column])
+
+    # Create the box plot
+    plt.figure()
+    ax = sns.boxplot(x=df.index, y=data_column, data=df, color="0.8")
+    ax = sns.stripplot(x=df.index, y=data_column, data=df, jitter=True, size=4, palette=colors)
+    ax.set_position([0.25, 0.3, 0.65, 0.6])
+    plt.xticks(rotation=90)
+    fig = ax.get_figure()
+    fig.set_size_inches(mean_df.count()[0] / 2 + 1, 4)
+    plt.xlabel(None)
+
+    return fig, ax
+
+# Create box plots for each SVD component
+for i in [0, 1, 2, 3]:
+    df_boxplot = pd.DataFrame(np.dot(np.concatenate((peripheral, paracentral, central), axis=0), svd.components_[i]), columns=[f'SVD {i}'])
+    df_boxplot['ID'] = np.concatenate((all_spectra['label'] + '_peripheral', all_spectra['label'] + '_paracentral', all_spectra['label'] + '_central'))
+    fig, _ = SVD_box_plot(df_boxplot, group_by='ID', data_column=f'SVD {i}')
 ```
 
 ## Citation
