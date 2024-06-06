@@ -87,44 +87,41 @@ all_spectra = pd.DataFrame()
 for files in glob(r'Absolute\\path\\to\\SPECIM\\SPECTRA\\FOLDER\\*spectrum.csv'):
     all_spectra = pd.concat([all_spectra, pd.read_csv(files)])
 
-# Print the label column values
-print(all_spectra['label'].values)
+# Create and print labels
+label = all_spectra['label'].values
+print(label)
+
+# Keep only spectral information
+all_spectra = all_spectra.iloc[:,5:]
 ```
 
 ```python
-'''
+"""
 Step 1: Normalization
 Normalize pixel intensity across all wavelength channels using the mean reflectance near 900 nm. 
 The channels from 167 to 172 correspond to the wavelengths from 892.95 to 908.24 nm.
-'''
+"""
 # Normalize the spectral data by dividing by the mean of specific columns (167 to 173)
-all_spectra = pd.concat(
-    (all_spectra.iloc[:, 0:5], all_spectra.iloc[:, 5:].divide(all_spectra.iloc[:, 5+167:5+173].mean(axis=1).values, axis=0)),
-    axis=1
-)
-
-# Create labels for the scatter plot
-label = np.concatenate((all_spectra['label'] + "_peripheral", all_spectra['label'] + "_central"), axis=0)
+all_spectra = all_spectra.divide(all_spectra.iloc[:, 167:173].mean(axis=1).values, axis=0)
 
 # Set a variable to remove lower-wavelength channels
 n = 4
 
 # Extract specific spectral regions
-whole = all_spectra.iloc[:, 5 + n:5 + 204]
-peripheral = all_spectra.iloc[:, 209 + n:209 + 204]
-paracentral = all_spectra.iloc[:, 413 + n:413 + 204]
-central = all_spectra.iloc[:, 617 + n:617 + 204]
+whole = all_spectra.iloc[:, n:204]
+peripheral = all_spectra.iloc[:, 204+n:408]
+paracentral = all_spectra.iloc[:, 408+n:612]
+central = all_spectra.iloc[:, 612+n:816]
 ```
 
 ### Step 2: Singular value decomposition (SVD)
 SVD is widely used for dimensionality reduction, allowing most of the spectral information across different wavelength channels to be projected into a smaller number of dimensions. We utilized SVD to extract non-redundant spectral features, which could highlight anomalous leaf color patterns.
 
 ```python
-'''
+"""
 Step 2: Singular value decomposition (SVD)
 Perform Singular Value Decomposition (SVD) transformation and save the first four SVD components. 
-'''
-
+"""
 # Concatenate the peripheral and central spectral regions
 concat = np.concatenate((peripheral, central), axis=0)
 print(concat.shape)  # Print the shape of the concatenated array
@@ -138,10 +135,11 @@ svd_values = svd.transform(concat)
 #np.savetxt(r'PATH\\TO\\FOLDER\\TO\\SAVE\\SVD_selected_components.csv', svd.components_, delimiter=",")
 np.savetxt(r'C:/Users/daisuke/Downloads/SPECIM_sample_spectra/SVD_selected_components.csv', svd.components_, delimiter=",")
 
+scatter_label = np.concatenate((label + "_peripheral", label + "_central"), axis=0)
 # Plot the SVD results
 for i in [0, 2]:
     plt.figure(figsize=(4, 4))
-    sns.scatterplot(x=np.array(svd_values[:, i]), y=np.array(svd_values[:, i + 1]), hue=label)
+    sns.scatterplot(x=np.array(svd_values[:, i]), y=np.array(svd_values[:, i + 1]), hue=scatter_label)
     plt.xlabel('Dimension %i (%.1f %%)' % (i + 1, (100 * svd.explained_variance_ratio_[i])))
     plt.ylabel('Dimension %i (%.1f %%)' % (i + 2, (100 * svd.explained_variance_ratio_[i + 1])))
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
@@ -158,12 +156,11 @@ Figure 3-1. Singular Value Decomposition. Image source: Wikipedia (https://en.wi
 Figure 3-2. (A) The first four SVD dimentions of leaf reflectance spectra. Colours show different nutrient deficiency treatments. (B) The SVD weight matrix. Green, red and blue vertical lines show absorption wavelengths for chlorophyll, anthocyanin and water.  Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
 
 ```python
-'''
+"""
 Step 3: SVD weight matrix
 plot the SVD weight matrix that would highlights leaf color patterns.
 The right singular vectors V* represent a weight matrix, revealing how leaf reflectance at individual wavelengths contributes to the identified patterns.
-'''
-
+"""
 # Define SPECIM IQ wavelength bands
 specim_wavelength = [397.32, 400.20, 403.09, 405.97, 408.85, 411.74, 414.63, 417.52, 420.40, 423.29, 426.19, 429.08, 431.97, 434.87, 437.76, 440.66, 443.56,
 446.45, 449.35, 452.25, 455.16, 458.06, 460.96, 463.87, 466.77, 469.68, 472.59, 475.50, 478.41, 481.32, 484.23, 487.14, 490.06, 492.97, 495.89, 498.80,
@@ -197,10 +194,10 @@ Utilize the chosen SVD weight matrices on hyperspectral plant images. After anal
 Figure 4. (A) RGB and pseudo-colored images of liverworts cultivated under Control, Nitrate Deficiency, Phosphate Deficiency, and Iron Deficiency conditions. Red arrows highlight pigmented and senesced regions in RGB, SVD2, and SVD3 images. Scale bar = 1 cm. (B) Boxplots illustrating the values along the top SVD dimensions extracted from peripheral, paracentral, and central areas. 
 
 ```python
-'''
+"""
 Step 4: Application
 Apply the selected SVD component(s) to hyperspectral images, and visualize them in SVD pseudo-colors
-'''
+"""
 # Initialize an empty array to store the hyperspectral data cubes
 cubes = np.empty(shape=[512, 0, 204])
 
@@ -249,9 +246,9 @@ for i in [1,2,3]:
 ```
 
 ```python
-'''
+"""
 Generate boxplots illustrating the values along the top SVD dimensions extracted from peripheral, paracentral, and central areas.. 
-'''
+"""
 def SVD_box_plot(df, group_by='ID', data_column=None):
     import seaborn as sns
     import matplotlib.pyplot as plt
@@ -279,7 +276,7 @@ def SVD_box_plot(df, group_by='ID', data_column=None):
 # Create box plots for each SVD component
 for i in [0, 1, 2, 3]:
     df_boxplot = pd.DataFrame(np.dot(np.concatenate((peripheral, paracentral, central), axis=0), svd.components_[i]), columns=[f'SVD {i}'])
-    df_boxplot['ID'] = np.concatenate((all_spectra['label'] + '_peripheral', all_spectra['label'] + '_paracentral', all_spectra['label'] + '_central'))
+    df_boxplot['ID'] = np.concatenate((label + '_peripheral', label + '_paracentral', label + '_central'))
     fig, _ = SVD_box_plot(df_boxplot, group_by='ID', data_column=f'SVD {i}')
 ```
 
