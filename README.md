@@ -1,4 +1,4 @@
-# Spatial leaf color patterns highlighted with Singular Value Decomposition (SVD)
+# Leaf Color Patterns Highlighted with Singular Value Decomposition (SVD)
 This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home]. 
 
 ## Background
