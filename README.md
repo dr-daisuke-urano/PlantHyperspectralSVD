@@ -117,7 +117,6 @@ SVD is widely used for dimensionality reduction, allowing most of the spectral i
 '''
 Step 2-1: SVD Transformation
 Perform Singular Value Decomposition (SVD) transformation and save the first four SVD components. 
-In Krishnamoorthi S (2024), the central and peripheral regions of CNT, 0xFe, 0xP and 0xN were utilized.
 '''
 
 # Concatenate the peripheral and central spectral regions
@@ -143,12 +142,11 @@ for i in [0, 2]:
     plt.show()
 ```
 
-### Step 3: Transformation of the representative images into SVD spaces 
-The transformation matrices of SVD can be used to project high-dimensional hyperspectral data into a small-dimensional space (two-dimensional image with six wavelength channels obtained with the SVD transformation matrix). Each of major SVD channels highlights distinct spectral features contained in the original data cube. 
+### Step 3: Pseudo-Colored Image Generation with SVD weight matrix
+In Figure 3-1, leaf reflectance spectra are represented by a matrix M, where each column corresponds to different wavelengths, and each row corresponds to individual plants. SVD decomposes this matrix A into three matrices: U, Σ, and V*. The right singular vectors V*, or more precisely, the rows of V*, act as a weight matrix, revealing how leaf reflectance at individual wavelengths contribute to the identified patterns within the top SVD components.  
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure3-1.png" alt="Alt text" width="50%">
-Figure 3-1. Singular Value Decomposition. In this project, leaf reflectance spectra are represented by a matrix M, where each column corresponds to different wavelengths, and each row corresponds to individual plants. SVD decomposes this matrix A into three matrices: U, Σ, and V*. The left singular vectors U (columns of U) capture distinct patterns or characteristics present in the reflectance spectra. Specifically, the four columns of U represent values in the first four dimensions of SVD, which can be thought of as unique features extracted from the data.
-Now, focus on the right singular vectors V*, or more precisely, the rows of V*. The first four rows of V* act as a weight matrix, revealing how leaf reflectance at individual wavelengths contribute to the identified patterns represented by the first four SVD modes. Each row in V* helps us understand the significance of specific wavelengths in shaping the major patterns (SVD0 – SVD3) discovered in the leaf reflectance spectra. Image source: Wikipedia (https://en.wikipedia.org/wiki/Singular_value_decomposition).<p></p>
+Figure 3-1. Singular Value Decomposition. Image source: Wikipedia (https://en.wikipedia.org/wiki/Singular_value_decomposition).<p></p>
 
 <img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure3-2.png" alt="Alt text" width="100%">
 Figure 3-2. (A) SVD analysis of thallus reflectance spectra. Thallus reflectance from the whole area is plotted on the first four columns of left singular vectors (SVD 0 – SVD 3) that were calculated from the central and peripheral spectral data. Colours show different nutrient deficiency treatments. (B) Line graphs showing the right singular vector rows for the first four dimensions of SVD. Green, red and blue vertical lines show absorption wavelengths for chlorophyll, anthocyanin and water.  Image source: Krishnamoorthi S et al. (2024) [https://www.cell.com/cell-reports/home].
