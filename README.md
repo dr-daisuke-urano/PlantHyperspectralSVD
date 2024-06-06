@@ -82,6 +82,15 @@ Note: The files contain ImageID, PlantID, growing_condition (label), area, and r
 ii. Download the PlantHyperspectralSVD.py file and import it into your Python environment.
 iii. Download the PlantHyperspectralSVD_Analysis.py (or copy the following code), then run it:
 """
+# Load packages required
+import pandas as pd
+import numpy as np
+import seaborn as sns
+from matplotlib import pyplot as plt
+from sklearn.decomposition import TruncatedSVD
+from glob import glob
+from PlantHyperspectralSVD import specim_loading, plant_masking
+
 # Read sample spectra files and concatenate them into one DataFrame
 all_spectra = pd.DataFrame()
 for files in glob(r'Absolute\\path\\to\\SPECIM\\SPECTRA\\FOLDER\\*spectrum.csv'):
