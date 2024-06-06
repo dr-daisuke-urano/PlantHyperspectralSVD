@@ -15,7 +15,7 @@ The SPECIM IQ hyperspectral camera generates 512x512 pixel images with 204 wavel
 0. Reflectance Spectra: Obtain leaf reflectance spectra from three regions: the central circle, paracentral annulus, and peripheral annulus.
 1. Normalization: Normalize the reflectance spectra using the reflectance near 900 nm.
 2. SVD Transformation: Perform Singular Value Decomposition (SVD) and plot the leaf spectra in the top SVD dimensions.
-3. SVD Weight Matrix: Select and save the SVD weight matrices that best highlight leaf color patterns.
+3. SVD Weight Matrix: Select and save the SVD weight vectors that best highlight leaf color patterns.
 4. Pseudo-Colored Image Generation: Generate pseudo-colored images using the top SVD components.
    
 ## Dependencies
