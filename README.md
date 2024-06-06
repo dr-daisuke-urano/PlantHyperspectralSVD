@@ -73,10 +73,15 @@ specim_plot(spectra_per_area, path) # Call the specim plot function
 ```
 
 ### Step 1: Normalization of leaf reflectance spectra with nIR bands.  
-Leaf reflectance is highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
+Leaf reflectance is highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra. Sample reflectance spectra obtained from the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_spectra]
 
 ```python
-# Read each CSV file and concatenate them into one DataFrame
+"""
+i. Download SPECIM IQ sample spectra (or generate spectra using the GUI in the step 0). Note that the sample sepctra files contain ImageID, PlantID, area, radius at the first four columns.
+ii. Download the PlantHyperspectralSVD.py file and import it into your Python environment.
+iii. Download the PlantHyperspectralSVD_Analysis.py (or copy the following code), then run it:
+"""
+# Read sample spectra files and concatenate them into one DataFrame
 all_spectra = pd.DataFrame()
 for files in glob(r'Absolute\\path\\to\\SPECIM\\SPECTRA\\FOLDER\\*spectrum.csv'):
     all_spectra = pd.concat([all_spectra, pd.read_csv(files)])
