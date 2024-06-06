@@ -73,7 +73,7 @@ specim_plot(spectra_per_area, path) # Call the specim plot function
 ```
 
 ### Step 1: Normalization of leaf reflectance spectra with nIR bands.  
-Leaf reflectance values are highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for plant stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of plant growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
+Leaf reflectance values are highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra.
 
 ### Step 1 procedure: 
 ```python
@@ -112,11 +112,7 @@ central = all_spectra.iloc[:, 617 + n:617 + 204]
 ```
 
 ### Step 2: Singular value decomposition (SVD)
-SVD is a widely used method for dimensionality reduction. Most of the spectral information spanning different wavelength channels can be projected into a small number of dimensional spaces. This method is effective in extracting non-redundant spectral features which possibly highlight anomalous leaf color patterns. 
-
-<img src="https://github.com/dr-daisuke-urano/Hyperspectral_Imaging/blob/main/Figures/Figure2.png" alt="Alt text" width="70%">
-Figure 2. Step 1: Pixel-by-pixel normalization of leaf reflectance spectra with nIR bands.  (A, B) Reflectance spectra obtained from representative plant leaves grown under control (A) and phosphate deficiency (B) conditions. Leaf reflectance at nIR bands from 890 to 910 nm are minimally affected by nutrient deficiencies but rather affected by light conditions. Blue graphs show the original reflectance spectra from leaf pixels. Orange graphs show reflectance spectra from the same pixels after dividing the original reflectance values by the mean reflectance from 890 to 910 nm. The solid lines with transparent bands show the mean values with S.D. Red vertical bands show the wavelength from 890 to 910 nm. 
-
+SVD is widely used for dimensionality reduction, allowing most of the spectral information across different wavelength channels to be projected into a smaller number of dimensions. We utilized SVD to extract non-redundant spectral features, which could highlight anomalous leaf color patterns.
 
 ### Step 2 procedure: 
 ```python
