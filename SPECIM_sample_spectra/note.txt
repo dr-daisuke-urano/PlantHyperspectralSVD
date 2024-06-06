@@ -1,0 +1,10 @@
+Sample spectra obtained from the hyperspectral images (which can be found in the SPECIM_sample_images directory). 
+The CSV files contain the following information: ImageID, PlantID, label (treatment), leaf area, radius, and reflectance spectra from whole, central, paracentral, and peripheral regions.
+Marchantia polymorpha plants were grown under various conditions: control (no stress), phosphate deficiency, nitrate deficiency, and iron deficiency. For more details, please refer to Krishnamoorthi S (2024) Cell Reports and Krishnamoorthi S (2024) Figshare.
+
+IDs and corresponding conditions:
+
+323: Nitrate deficiency
+347: Iron deficiency
+397: Phosphate deficiency
+421: Control
