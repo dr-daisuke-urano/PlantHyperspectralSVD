@@ -53,16 +53,12 @@ import numpy as np
 # Absolute path to SPECIM IQ image folder
 path = r'Abosolute\\path\\to\\SPECIM\\IMGE\\FOLDER'
 labels = ['leaf']  # Labels for selected plants
-threshold_val = 2.2  # Threshold value for masking. 
-# Note: This threshold value can be adjusted based on species and experimental conditions.
+threshold_val = 2.2  # Threshold value for masking. This value can be adjusted based on species and experimental conditions.
+```
 
-#%%
+```python
 cube = specim_loading(path) # Load hyperspectral image into numpy cube
-
-# GUI for plant selection
-# Double-click to select plants, press "q" to finish
-location, _ = plant_selection(cube) 
-
+location, _ = plant_selection(cube) # GUI for plant selection. Double-click to select plants, press "q" to finish
 location['label'] = labels  # Add label column to location DataFrame
 spectra, img, masked = data_extraction(cube, location, threshold=threshold_val, path=path) # Masking and Extraction of spectral data. Adjust threshold values as needed 
 
@@ -87,8 +83,38 @@ Plant leaves exhibit high reflectance of near-infrared (nIR) light. While reflec
 i. For each pixel, calculate the mean nIR reflectance value from 890 to 910 nm.
 ii. Divide pixel values at all wavelength channels by the respective mean nIR reflectance.
 """
+# Read each CSV file and concatenate them into one DataFrame
+all_spectra = pd.DataFrame()
+for files in glob(r'PATH\\TO\\SPECIM_sample_spectra\\*spectrum.csv'):
+    all_spectra = pd.concat([all_spectra, pd.read_csv(files)])
 
+# Print the label column values
+print(all_spectra['label'].values)
+```
 
+```python
+'''
+Step 1: Normalization
+Normalize pixel intensity across all wavelength channels using the mean reflectance near 900 nm. 
+The channels from 167 to 172 correspond to the wavelengths from 892.95 to 908.24 nm.
+'''
+# Normalize the spectral data by dividing by the mean of specific columns (167 to 173)
+all_spectra = pd.concat(
+    (all_spectra.iloc[:, 0:5], all_spectra.iloc[:, 5:].divide(all_spectra.iloc[:, 5+167:5+173].mean(axis=1).values, axis=0)),
+    axis=1
+)
+
+# Create labels for the scatter plot
+label = np.concatenate((all_spectra['label'] + "_peripheral", all_spectra['label'] + "_central"), axis=0)
+
+# Set a variable to remove lower-wavelength channels
+n = 4
+
+# Extract specific spectral regions
+whole = all_spectra.iloc[:, 5 + n:5 + 204]
+peripheral = all_spectra.iloc[:, 209 + n:209 + 204]
+paracentral = all_spectra.iloc[:, 413 + n:413 + 204]
+central = all_spectra.iloc[:, 617 + n:617 + 204]
 ```
 
 ### Step 2: Singular value decomposition (SVD)
