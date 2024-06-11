@@ -122,8 +122,8 @@ cubes = np.empty(shape=[512, 0, 204])
 for folder in glob(r'C:\Users\daisuke\OneDrive - Temasek Life Sciences Laboratory\Manuscript\SR_Auronidin\Representative_Hypserspectral_images\*')[:4]:
     # Load hyperspectral data cube
     cube = specim_loading(folder)
-    # If necessary, conduct pixel-wise normalization using nIR channels. 
-    normalized_cube = cube / np.mean(cube[:, :, 167:173], axis=2, keepdims=True)    
+    # If necessary, conduct normalization using some nIR channels before concatenating cubes. 
+    normalized_cube = cube / np.mean(cube[:, :, 198], axis=2, keepdims=True)    
     # Concatenate the normalized cube to the existing cubes array
     cubes = np.concatenate((cubes, normalized_cube), axis=1)
 
