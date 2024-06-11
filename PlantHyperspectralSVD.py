@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Updated on March 9th 2021
 
-@author: Daisuke
-"""
-
-#%%
 def specim_loading(path):
     """
     Load a hyperspectral data cube from the SPECIM IQ image directory.
