@@ -1,5 +1,5 @@
 # Leaf Color Patterns Highlighted with Singular Value Decomposition (SVD)
-This is the official implementation for Shalini Krishnamoorthi et al. (2024) [https://www.cell.com/cell-reports/home]. 
+This is the official implementation for Krishnamoorthi S et al. (2024) [https://doi.org/10.1016/j.celrep.2024.114463]. 
 
 ## Background
 Leaf reflectance spectra are widely utilized for diagnosing plant stresses, which often manifest as distinct leaf color patterns. Figure 1 shows liverworts (Marchantia polymorpha) grown under various nutrient deficiencies. Nitrate deficiency (0xN) and phosphate deficiency (0xP) result in early senescence and purple pigmentation in the central area, respectively. Iron deficiency (0xFe) induces leaf chlorosis starting from the peripheral growing area, while calcium deficiency (0.05xCa) leads to irreversible necrosis of the growing edges. These color changes are location-dependent, as shown in reflectance spectra obtained from three distinct regions: a central circle, paracentral annulus, and peripheral annulus (see Figure 1A).
@@ -289,5 +289,5 @@ for i in [0, 1, 2, 3]:
 ```
 
 ## Citation
-Shalini Krishnamoorthi, Grace Zi Hao Tan, Yating Dong, Richalynn Leong, Ting-Ying Wu, Daisuke Urano (2024) [https://www.cell.com/cell-reports/home].<br>
+Shalini Krishnamoorthi, Grace Zi Hao Tan, Yating Dong, Richalynn Leong, Ting-Ying Wu, Daisuke Urano (2024) [https://doi.org/10.1016/j.celrep.2024.114463].<br>
 Shalini Krishnamoorthi, Daisuke Urano (2024) Figshare .[https://doi.org/10.6084/m9.figshare.24257317]
