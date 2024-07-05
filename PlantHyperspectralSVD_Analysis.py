@@ -22,7 +22,7 @@ iii. Download the PlantHyperspectralSVD_Analysis.py (or copy the following code)
 """
 # Read sample spectra files and concatenate them into one DataFrame
 all_spectra = pd.DataFrame()
-for files in glob(r'C:/Users/daisuke/Downloads/SPECIM_sample_spectra/*spectrum.csv'):
+for files in glob(r'Absolute\\path\\to\\SPECIM\\SPECTRA\\FOLDER\\*spectrum.csv'):
     all_spectra = pd.concat([all_spectra, pd.read_csv(files)])
 
 # Create and print labels
@@ -66,7 +66,6 @@ svd_values = svd.transform(concat)
 
 # Uncomment the next line to save the SVD components to a CSV file
 #np.savetxt(r'PATH\\TO\\FOLDER\\TO\\SAVE\\SVD_selected_components.csv', svd.components_, delimiter=",")
-np.savetxt(r'C:/Users/daisuke/Downloads/SPECIM_sample_spectra/SVD_selected_components.csv', svd.components_, delimiter=",")
 
 scatter_label = np.concatenate((label + "_peripheral", label + "_central"), axis=0)
 # Plot the SVD results
@@ -119,7 +118,7 @@ Apply the selected SVD component(s) to hyperspectral images, and visualize them 
 cubes = np.empty(shape=[512, 0, 204])
 
 # Load and normalize hyperspectral images from the specified folder
-for folder in glob(r'C:\Users\daisuke\OneDrive - Temasek Life Sciences Laboratory\Manuscript\SR_Auronidin\Representative_Hypserspectral_images\*')[:4]:
+for folder in glob(r'Abosolute\\path\\to\\SPECIM\\IMAGE\\FOLDER\\*')[:4]:
     # Load hyperspectral data cube
     cube = specim_loading(folder)
     # If necessary, conduct normalization using some nIR channels before concatenating cubes. 
