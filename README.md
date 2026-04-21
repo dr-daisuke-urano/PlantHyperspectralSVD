@@ -1,5 +1,5 @@
 # Leaf Color Patterns Highlighted with Singular Value Decomposition (SVD)
-This is the official implementation for [Krishnamoorthi S (2024) Cell Reports 43: 114463](https://doi.org/10.1016/j.celrep.2024.114463) and Tan GZH and Urano D (under review in CSH Protocols). 
+This is the official implementation for [Krishnamoorthi S (2024) Cell Reports 43: 114463](https://doi.org/10.1016/j.celrep.2024.114463) and Tan GZH and Urano D (under review in CSH Protocols). For applications involving ornamental plant leaves, please visit our sister repository: [Plant-Hyperspectral](https://github.com/dr-daisuke-urano/Plant-Hyperspectral).
 
 Quick Start (updated in April 2026): We provide a [Google Colab Notebook](https://colab.research.google.com/drive/1_2oJu8bewhi1PlhVVRum3nC1oVZkKUPE?usp=sharing). This environment, optimized with Google Gemini, allows users to execute the full pipeline—including spectral masking, concentric spatial segmentation (Central, Paracentral, Peripheral), and phenotypic clustering—without local installation. Four representative hyperspectral images can be downloaded from the [SPECIM_sample_images](./SPECIM_sample_images) directory, and other images are archived on [Figshare](https://doi.org/10.6084/m9.figshare.24257317). After downloading, ensure the datasets are unzipped before uploading them to the Colab environment.
 
@@ -294,5 +294,6 @@ for i in [0, 1, 2, 3]:
 ## Citation
 [Krishnamoorthi S, Tan GZH, Dong Y, Leong R, Wu TY, Urano D (2024) Cell Reports 43: 114463](https://doi.org/10.1016/j.celrep.2024.114463) <br>
 [Krishnamoorthi S, Urano D (2024) Figshare](https://doi.org/10.6084/m9.figshare.24257317) <br>
+[Krishnamoorthi S, Urano D (2025) STAR\*Protocols](https://www.cell.com/star-protocols/fulltext/S2666-1667(25)00260-6) <br>
 Tan GZH, Urano D (under review) CSH Protcols
 
