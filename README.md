@@ -292,7 +292,7 @@ for i in [0, 1, 2, 3]:
 ```
 
 ## Citation
-Krishnamoorthi S, Tan GZH, Dong Y, Leong R, Wu TY, Urano D (2024) Cell Reports 43: 114463 [https://doi.org/10.1016/j.celrep.2024.114463].<br>
-Krishnamoorthi S, Urano D (2024) Figshare .[https://doi.org/10.6084/m9.figshare.24257317]
+[Krishnamoorthi S, Tan GZH, Dong Y, Leong R, Wu TY, Urano D (2024) Cell Reports 43: 114463] (https://doi.org/10.1016/j.celrep.2024.114463).<br>
+[Krishnamoorthi S, Urano D (2024) Figshare](https://doi.org/10.6084/m9.figshare.24257317).<br>
 Tan GZH, Urano D (under review) CSH Protcols
 
