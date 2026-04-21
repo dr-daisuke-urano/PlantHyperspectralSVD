@@ -39,7 +39,7 @@ conda env create --name PlantHyperspectralSVD --file environment.yml
 
 ## Usage
 ### Step 0 (Prerequisites): 
-Background masking and ROI selection (i.e., leaf pixels within the three distinct regions) are required to obtain leaf reflectance spectra. We provide a simple GUI that assists users in masking the background, selecting plants, and obtaining mean reflectance spectra from the central, paracentral, and peripheral areas, as well as from the whole plants. The obtained spectral data are saved in CSV format. Sample hyperspectral images for the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images]
+Background masking and ROI selection (i.e., leaf pixels within the three distinct regions) are required to obtain leaf reflectance spectra. We provide a simple GUI that assists users in masking the background, selecting plants, and obtaining mean reflectance spectra from the central, paracentral, and peripheral areas, as well as from the whole plants. The obtained spectral data are saved in CSV format. Sample hyperspectral images for the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided in the [SPECIM_sample_images](https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_images) directory.
 
 ```python
 """
@@ -76,7 +76,7 @@ specim_plot(spectra_per_area, path) # Call the specim plot function
 ```
 
 ### Step 1: Normalization of leaf reflectance spectra with nIR bands.  
-Leaf reflectance is highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra. Sample reflectance spectra obtained from the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided at [https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_spectra]
+Leaf reflectance is highly affected by lighting conditions. To minimize variations due to uneven lighting, we utilized the 890–910 nm bands as the reference to normalize leaf reflectance spectra. This choice of wavelength bands is because visible to far-red reflectances (400 - 750 nm) vary under various stresses, making them useful for stress diagnostics. On the other hand, leaf reflectance near 900 nm remains relatively stable regardless of growing conditions, which makes it ideal for normalizing the leaf reflectance spectra. Sample reflectance spectra obtained from the control (ID: 421), phosphate deficiency (ID: 397), nitrate deficiency (ID: 323), and iron deficiency (ID: 347) conditions are provided in the [SPECIM_sample_spectra](https://github.com/dr-daisuke-urano/PlantHyperspectralSVD/tree/main/SPECIM_sample_spectra) directory.
 
 ```python
 """
@@ -292,7 +292,7 @@ for i in [0, 1, 2, 3]:
 ```
 
 ## Citation
-[Krishnamoorthi S, Tan GZH, Dong Y, Leong R, Wu TY, Urano D (2024) Cell Reports 43: 114463] (https://doi.org/10.1016/j.celrep.2024.114463).<br>
-[Krishnamoorthi S, Urano D (2024) Figshare](https://doi.org/10.6084/m9.figshare.24257317).<br>
+[Krishnamoorthi S, Tan GZH, Dong Y, Leong R, Wu TY, Urano D (2024) Cell Reports 43: 114463](https://doi.org/10.1016/j.celrep.2024.114463) <br>
+[Krishnamoorthi S, Urano D (2024) Figshare](https://doi.org/10.6084/m9.figshare.24257317) <br>
 Tan GZH, Urano D (under review) CSH Protcols
 
