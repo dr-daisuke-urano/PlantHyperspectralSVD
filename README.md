@@ -1,7 +1,7 @@
 # Leaf Color Patterns Highlighted with Singular Value Decomposition (SVD)
 This is the official implementation for [Krishnamoorthi S (2024) Cell Reports 43: 114463](https://doi.org/10.1016/j.celrep.2024.114463) and Tan GZH and Urano D (under review in CSH Protocols). 
 
-Quick Start (updated in April 2026): We provide a [Google Colab Notebook](https://colab.research.google.com/drive/1_2oJu8bewhi1PlhVVRum3nC1oVZkKUPE?usp=sharing). This environment, optimized with Google Gemini, allows users to execute the full pipeline—including spectral masking, concentric spatial segmentation (Central, Paracentral, Peripheral), and phenotypic clustering—without local installation. Four representative hyperspectral images can be downloaded from the [SPECIM_sample_images/](./SPECIM_sample_images) directory, and other images are archived on [Figshare](https://doi.org/10.6084/m9.figshare.24257317). After downloading, ensure the datasets are unzipped before uploading them to the Colab environment.
+Quick Start (updated in April 2026): We provide a [Google Colab Notebook](https://colab.research.google.com/drive/1_2oJu8bewhi1PlhVVRum3nC1oVZkKUPE?usp=sharing). This environment, optimized with Google Gemini, allows users to execute the full pipeline—including spectral masking, concentric spatial segmentation (Central, Paracentral, Peripheral), and phenotypic clustering—without local installation. Four representative hyperspectral images can be downloaded from the [SPECIM_sample_images](./SPECIM_sample_images) directory, and other images are archived on [Figshare](https://doi.org/10.6084/m9.figshare.24257317). After downloading, ensure the datasets are unzipped before uploading them to the Colab environment.
 
 
 ## Background
