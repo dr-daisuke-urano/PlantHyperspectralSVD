@@ -295,5 +295,5 @@ for i in [0, 1, 2, 3]:
 [Krishnamoorthi S, Tan GZH, Dong Y, Leong R, Wu TY, Urano D (2024) Cell Reports 43: 114463](https://doi.org/10.1016/j.celrep.2024.114463) <br>
 [Krishnamoorthi S, Urano D (2024) Figshare](https://doi.org/10.6084/m9.figshare.24257317) <br>
 [Krishnamoorthi S, Urano D (2025) STAR\*Protocols](https://www.cell.com/star-protocols/fulltext/S2666-1667(25)00260-6) <br>
-Tan GZH, Urano D (under review) CSH Protcols
+Tan GZH, Urano D (under review) Cold Spring Harbor Protcols
 
